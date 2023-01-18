@@ -36,7 +36,7 @@ void TestBasic() {
     {
         Vector<char> v;
         assert(v.size() == 0);
-        //assert(v.capacity() >= 0);
+        assert(v.capacity() >= 0);
         //assert(v.invariant());
     }
 #endif

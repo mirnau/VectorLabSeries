@@ -27,10 +27,10 @@ public:
 		return _size;
 	};
 
-	//size_t capacity() const noexcept
-	//{
-	//	return _capacity;
-	//}
+	size_t capacity() const noexcept
+	{
+		return _capacity;
+	}
 
 	//bool invariant() const
 	//{
