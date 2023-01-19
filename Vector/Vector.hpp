@@ -73,6 +73,16 @@ public:
 		return _capacity;
 	}
 
+	const T& at(size_t i) const
+	{
+		if (i <= _capacity)
+			return *(_arrayPtr + i);
+		else
+			throw std::out_of_range("Index is out of Range");
+	};
+
+
+
 	bool invariant() const
 	{
 		//if (!(_capacity >= _size))
@@ -142,7 +152,17 @@ public:
 		for (size_t i = 0; i < other.size(); ++i)
 			cout << other[i];
 		return cout;
-	}
+	};
+
+	const T& operator[](size_t i) const
+	{
+		return *(_arrayPtr + i);
+	};
+
+	T& operator[](size_t i)
+	{
+		return *(_arrayPtr + i);
+	};
 
 	//VS-studio
 	//auto operator<=>(const Vector& a) const default;
