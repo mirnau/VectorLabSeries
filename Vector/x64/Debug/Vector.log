@@ -1,4 +1,8 @@
 ﻿  Main.cpp
   VectBasicTest.cpp
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\Vector.hpp(141,1): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\Vector.hpp(135,1): message : while compiling class template member function 'void Vector<char>::resize(size_t)'
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectBasicTest.cpp(123,19): message : see reference to function template instantiation 'void Vector<char>::resize(size_t)' being compiled
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectBasicTest.cpp(37,22): message : see reference to class template instantiation 'Vector<char>' being compiled
   Generating Code...
   Vector.vcxproj -> C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\x64\Debug\Vector.exe

@@ -36,7 +36,7 @@ public:
 		_capacity = _size;
 
 		//Creates a new instance, hence no delete
-		_arrayPtr = new T[_capacity + 1];
+			_arrayPtr = new T[_capacity + 1];
 
 		for (size_t i = 0; i < _size; i++)
 		{
@@ -98,7 +98,7 @@ public:
 	void push_back(const T& c)
 	{
 		if (_size + 1 > _capacity)
-			resize(_capacity * 2);
+			reserve(_capacity * 2);
 
 		*(_arrayPtr + _size) = c;
 		++_size;
@@ -114,14 +114,11 @@ public:
 		invariant();
 	};
 
-	void resize(size_t n)
+	void reserve(size_t n)
 	{
-		//delete[] _arrayPtr;
-		//_arrayPtr = new T[n];
-
 		if (n > _capacity)
 		{
-			auto a = new T[n];
+			auto a = new T[n + 1];
 
 			for (size_t i = 0; i < _capacity; i++)
 			{
@@ -133,6 +130,53 @@ public:
 		}
 		invariant();
 	};
+
+	void resize(size_t n)
+	{
+		if (n == _size)
+		{
+			return;
+		}
+
+		int difference = n - _size;
+
+		if (difference > 0)
+		{
+			if (_capacity < n)
+			{
+				reserve(difference);
+
+				for (size_t i = _size; i < n; i++)
+				{
+					*(_arrayPtr + i) = *new T();
+				}
+				_size = n;
+				_capacity = n;
+			}
+			else
+			{
+				_size = n;
+				shrink_to_fit();
+			}
+		}
+	}
+
+	void shrink_to_fit()
+	{
+		T* temp = new T[_size + 1]{};
+
+		for (size_t i = 0; i < _size; ++i)
+		{
+			*(temp + i) = *(_arrayPtr + i);
+		}
+
+		delete[] _arrayPtr;
+		_arrayPtr = temp;
+		temp = nullptr;
+
+		_capacity = _size;
+		invariant();
+	}
 
 	bool invariant() const
 	{
@@ -172,7 +216,7 @@ public:
 		
 		if (other.size() > _capacity)
 		{
-			resize(other.size());
+			reserve(other.size());
 			_size = _capacity;
 		}
 
@@ -191,7 +235,7 @@ public:
 			return *this;
 		if (other.size() > _capacity)
 		{ 
-			resize(other.size());
+			reserve(other.size());
 			_size = _capacity;
 		}
 
@@ -200,6 +244,7 @@ public:
 			*(_arrayPtr + i) = *(other._arrayPtr + i);
 		}
 
+		delete[] other._arrayPtr;
 		other._arrayPtr = nullptr;
 		other._size = 0;
 		other._capacity = 0;
