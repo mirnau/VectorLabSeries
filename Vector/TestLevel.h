@@ -1,6 +1,6 @@
 #pragma once
 
-#define LEVEL 1
+#define LEVEL 4
 //#define G_BETYG
 //#define VG_BETYG
 
@@ -17,7 +17,7 @@ Vector();
 size();
 capacity();
 Invariant();
-/*
+
 level 2
 Vector(char*);
 operator<<

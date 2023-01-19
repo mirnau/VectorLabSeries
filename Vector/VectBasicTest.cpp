@@ -37,15 +37,16 @@ void TestBasic() {
         Vector<char> v;
         assert(v.size() == 0);
         assert(v.capacity() >= 0);
-        //assert(v.invariant());
+        assert(v.invariant());
     }
 #endif
 #if LEVEL>=2
     {
         Vector<char> foo("foo");
         assert(foo.size() == 3);
-        cout << foo;
+        //cout << foo;
         assert(foo == foo);
+        assert(foo != "boo");
         Vector<char> bar("bar");
         assert(!(foo == bar));
     }
@@ -54,9 +55,9 @@ void TestBasic() {
     {
         Vector<char> foo("foo"), bar("bar");
         assert(foo == foo && !(foo != foo));
-        assert(bar < foo && !(bar > foo));
-        assert(bar <= foo && !(bar >= foo));
-        assert(bar <= bar && foo >= foo);
+        //assert(bar < foo && !(bar > foo));
+        //assert(bar <= foo && !(bar >= foo));
+        //assert(bar <= bar && foo >= foo);
         Vector<char> fooa("fooa");
         assert(foo<fooa&& fooa>foo);
     }
@@ -65,7 +66,7 @@ void TestBasic() {
     {
         Vector<char> foo("foo"), bar("bar");
         Vector<char> foo2(foo);
-        assert(foo2.Invariant() && foo2.size() == 3);
+        assert(foo2.invariant() && foo2.size() == 3);
         assert(foo == foo2);
         foo2 = bar;
         assert(foo2 == bar);

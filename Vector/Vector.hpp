@@ -1,9 +1,14 @@
 #pragma once
+#include <iostream>
+#include <compare>
 
 template <class T>
 class Vector
 {
 private:
+	static const int _initCapacity = 4;
+	T* _arrayPtr;
+
 	size_t _size;
 	size_t _capacity;
 
@@ -12,14 +17,50 @@ public:
 	////Constructors & Destrctor
 	Vector() noexcept
 	{
-		_size = 0;
-		_capacity = 0;
-	};
-	//Vector(const char* other);
-	//Vector(const Vector& other);
-	//Vector(Vector&& other) noexcept;
+		T tArray[_initCapacity];
+		_arrayPtr = tArray;
 
-	//~Vector() noexcept;
+		_size = 0;
+		_capacity = _initCapacity;
+		invariant();
+	};
+
+	Vector(const char* other)
+	{
+		_size = 0;
+		while (other[_size] != '\0')
+			_size++;
+
+		_capacity = _size;
+
+		_arrayPtr = new T[_capacity];
+
+		for (size_t i = 0; i < _size; i++)
+		{
+			_arrayPtr[i] = other[i];
+		}
+
+		invariant();
+	};
+
+	Vector(const Vector& other)
+	{
+		this->_size = other.size();
+		this->_capacity = other.capacity();
+
+		_arrayPtr = new T[other.size()];
+
+		for (size_t i = 0; i < other.size(); i++)
+		{
+			*(_arrayPtr + i) = *(other._arrayPtr + i);
+		}
+	};
+
+	//Vector(Vector&& other) noexcept;
+	~Vector() noexcept
+	{
+		invariant();
+	};
 
 	////Methods
 	size_t size() const noexcept
@@ -32,13 +73,23 @@ public:
 		return _capacity;
 	}
 
-	//bool invariant() const
-	//{
-	//	return 0;
-	//};
+	bool invariant() const
+	{
+		//if (!(_capacity >= _size))
+		//	return false;
+		//if (!arrayPtr)
+		//	return false;
+		//else
+		//	return true;
+
+		return
+			_capacity >= _size &&
+			_arrayPtr;
+
+	};
 
 #define CHECK assert((invariant()))
-	
+
 
 	//void reserve(size_t n);
 	//void shrink_to_fit();
@@ -54,8 +105,47 @@ public:
 	//
 	//[const] T& operator[](size_t i)[const];
 
-	//friend bool operator==(const Vector& lhs,
-	//	const Vector& other);
+
+	friend int operator<=>(const Vector& lhs, const Vector& rhs)
+	{
+		if(lhs.size() > rhs.size())
+			return 1;
+		else if (lhs.size() < rhs.size())
+			return -1;
+		else
+			return 0;
+	};
+
+
+	friend bool operator==(const Vector& lhs, const Vector& rhs)
+	{
+		int count = 0;
+
+		if (lhs._size != rhs._size)
+			return false;
+
+		else
+			for (T* ptr = lhs._arrayPtr; ptr < lhs._arrayPtr + lhs._size; ++ptr)
+			{
+				if (*ptr != *(rhs._arrayPtr + count))
+				{
+					return false;
+				}
+				++count;
+			}
+
+		return true;
+	};
+
+	friend std::ostream& operator<<(std::ostream& cout, const Vector& other)
+	{
+		for (size_t i = 0; i < other.size(); ++i)
+			cout << other[i];
+		return cout;
+	}
+
+	//VS-studio
+	//auto operator<=>(const Vector& a) const default;
 
 	////Iterators
 	//iterator begin() noexcept;
