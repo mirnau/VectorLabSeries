@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <compare>
+#include <utility>
 
 template <class T>
 class Vector
@@ -17,8 +18,9 @@ public:
 	////Constructors & Destrctor
 	Vector() noexcept
 	{
-		T tArray[_initCapacity];
-		_arrayPtr = tArray;
+		//T tArray[_initCapacity];
+		//_arrayPtr = tArray;
+		_arrayPtr = new T[_initCapacity];
 
 		_size = 0;
 		_capacity = _initCapacity;
@@ -33,7 +35,8 @@ public:
 
 		_capacity = _size;
 
-		_arrayPtr = new T[_capacity];
+		//Creates a new instance, hence no delete
+		_arrayPtr = new T[_capacity + 1];
 
 		for (size_t i = 0; i < _size; i++)
 		{
@@ -50,31 +53,42 @@ public:
 
 		_arrayPtr = new T[other.size()];
 
-		for (size_t i = 0; i < other.size(); i++)
-		{
-			*(_arrayPtr + i) = *(other._arrayPtr + i);
-		}
+		CopyArray(other);
 	};
 
-	//Vector(Vector&& other) noexcept;
+	Vector(Vector&& other) noexcept :
+		_arrayPtr(other._arrayPtr), 
+		_size(other._size), 
+		_capacity(other._capacity)
+	{
+		other._arrayPtr = nullptr;
+		other._size = 0;
+		other._capacity = 0;
+		invariant();
+	};
+
 	~Vector() noexcept
 	{
 		invariant();
+		delete[] _arrayPtr;
 	};
 
 	////Methods
 	size_t size() const noexcept
 	{
+		invariant();
 		return _size;
 	};
 
 	size_t capacity() const noexcept
 	{
+		invariant();
 		return _capacity;
 	};
 
 	const T& at(size_t i) const
 	{
+		invariant();
 		if (i <= _capacity)
 			return *(_arrayPtr + i);
 		else
@@ -84,14 +98,27 @@ public:
 	void push_back(const T& c)
 	{
 		if (_size + 1 > _capacity)
-			resize(2 * _capacity);
+			resize(_capacity * 2);
 
+		*(_arrayPtr + _size) = c;
 		++_size;
-		(_arrayPtr + _size) = c;
+		invariant();
+	};
+
+	void CopyArray(const Vector& other)
+	{
+		for (size_t i = 0; i < other.size(); i++)
+		{
+			*(_arrayPtr + i) = *(other._arrayPtr + i);
+		}
+		invariant();
 	};
 
 	void resize(size_t n)
 	{
+		//delete[] _arrayPtr;
+		//_arrayPtr = new T[n];
+
 		if (n > _capacity)
 		{
 			auto a = new T[n];
@@ -102,7 +129,9 @@ public:
 			}
 
 			_capacity = n;
+			delete[] a;
 		}
+		invariant();
 	};
 
 	bool invariant() const
@@ -115,8 +144,7 @@ public:
 		//	return true;
 
 		return
-			_capacity >= _size &&
-			_arrayPtr;
+			_capacity >= _size;
 
 	};
 
@@ -137,11 +165,53 @@ public:
 			return 0;
 	};
 
+	Vector& operator=(const Vector& other)
+	{
+		if (this == &other)
+			return *this;
+		
+		if (other.size() > _capacity)
+		{
+			resize(other.size());
+			_size = _capacity;
+		}
+
+		for (size_t i = 0; i < other.size(); i++)
+		{
+			*(_arrayPtr + i) = *(other._arrayPtr + i);
+		}
+
+		invariant();
+		return *this;
+	};
+
+	Vector& operator=(Vector&& other) noexcept
+	{
+		if (*this == other)
+			return *this;
+		if (other.size() > _capacity)
+		{ 
+			resize(other.size());
+			_size = _capacity;
+		}
+
+		for (size_t i = 0; i < other.size(); i++)
+		{
+			*(_arrayPtr + i) = *(other._arrayPtr + i);
+		}
+
+		other._arrayPtr = nullptr;
+		other._size = 0;
+		other._capacity = 0;
+
+		invariant();
+		return *this;
+	};
+
 
 	friend bool operator==(const Vector& lhs, const Vector& rhs)
 	{
 		int count = 0;
-
 		if (lhs._size != rhs._size)
 			return false;
 
@@ -162,16 +232,19 @@ public:
 	{
 		for (size_t i = 0; i < other.size(); ++i)
 			cout << other[i];
+		invariant();
 		return cout;
 	};
 
 	const T& operator[](size_t i) const
 	{
+		invariant();
 		return *(_arrayPtr + i);
 	};
 
 	T& operator[](size_t i)
 	{
+		invariant();
 		return *(_arrayPtr + i);
 	};
 
