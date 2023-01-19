@@ -71,7 +71,7 @@ public:
 	size_t capacity() const noexcept
 	{
 		return _capacity;
-	}
+	};
 
 	const T& at(size_t i) const
 	{
@@ -81,7 +81,29 @@ public:
 			throw std::out_of_range("Index is out of Range");
 	};
 
+	void push_back(const T& c)
+	{
+		if (_size + 1 > _capacity)
+			resize(2 * _capacity);
 
+		++_size;
+		(_arrayPtr + _size) = c;
+	};
+
+	void resize(size_t n)
+	{
+		if (n > _capacity)
+		{
+			auto a = new T[n];
+
+			for (size_t i = 0; i < _capacity; i++)
+			{
+				*(a + i) = *(_arrayPtr + i);
+			}
+
+			_capacity = n;
+		}
+	};
 
 	bool invariant() const
 	{
@@ -104,21 +126,10 @@ public:
 	//void reserve(size_t n);
 	//void shrink_to_fit();
 	//void resize(size_t n);
-	//void push_back(const T& c);
-
-	//[const] T& at(size_t i)[const];
-	//[const] T* data()[const] noexcept;
-
-	////Operator overloading
-	//Vector& operator=(const Vector& other);
-	//Vector& operator=(Vector&& other) noexcept;
-	//
-	//[const] T& operator[](size_t i)[const];
-
 
 	friend int operator<=>(const Vector& lhs, const Vector& rhs)
 	{
-		if(lhs.size() > rhs.size())
+		if (lhs.size() > rhs.size())
 			return 1;
 		else if (lhs.size() < rhs.size())
 			return -1;
