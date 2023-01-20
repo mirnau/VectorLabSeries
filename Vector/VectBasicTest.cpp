@@ -122,10 +122,10 @@ void TestBasic() {
         assert(Fox.capacity() == 3);
         Fox.resize(10);
         assert(Fox.capacity() >= 10);
-        //assert(Fox.size() == 10);
-        //assert(Fox[9] == 0);
-        //Fox = "Fox";
-        //Bar = "Bar";
+        assert(Fox.size() == 10);
+        assert(Fox[9] == 0);
+        Fox = "Fox";
+        Bar = "Bar";
         //swap(Fox, Bar);
         //assert(Fox == "Bar" && Bar == "Fox");
     }
