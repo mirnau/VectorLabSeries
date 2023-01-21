@@ -30,6 +30,12 @@
     <ClInclude Include="Vector.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="VectorIterator.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SandBox.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">

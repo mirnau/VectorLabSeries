@@ -21,9 +21,11 @@
   <ItemGroup>
     <ClInclude Include="Dhelper.h" />
     <ClInclude Include="main.h" />
+    <ClInclude Include="SandBox.hpp" />
     <ClInclude Include="TestLevel.h" />
     <ClInclude Include="VectIterTest.h" />
     <ClInclude Include="Vector.hpp" />
+    <ClInclude Include="VectorIterator.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />

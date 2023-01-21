@@ -18,7 +18,19 @@ using std::cout;
 void TestBasic();
 void TestVector();
 
-int main() {
+int main() 
+
+{
+
+    //Vector<char> vec = "shiterator";
+
+    //for (char v : vec )
+    //{
+    //    std::cout << v << std::endl;
+    //}
+
+    //vec.begin();
+
 #ifdef DBG_NEW
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #endif

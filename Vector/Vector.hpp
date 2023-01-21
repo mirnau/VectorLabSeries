@@ -3,6 +3,9 @@
 #include <compare>
 #include <utility>
 
+#include "VectorIterator.hpp"
+
+
 template <class T>
 class Vector
 {
@@ -14,6 +17,11 @@ private:
 	size_t m_capacity;
 
 public:
+	using iterator = VectorIterator<Vector<T>, const Vector<T>, 1>;
+	using const_iterator = VectorIterator<Vector<T>, const Vector<T>, 1>;
+	using reverse_iterator = VectorIterator<Vector<T>, Vector<const T>, -1>;
+	using reverse_const_iterator = VectorIterator<Vector<T>, Vector<const T>, -1>;
+	using value_type = T;
 
 	////Constructors & Destrctor
 	Vector() noexcept
@@ -191,6 +199,11 @@ public:
 		Invariant();
 	}
 
+	const T* Data() const noexcept
+	{
+		return m_arrayPtr;
+	}
+
 	bool Invariant() const
 	{
 		//if (!(_capacity >= _size))
@@ -255,7 +268,7 @@ public:
 		{
 			*(m_arrayPtr + i) = *(other.m_arrayPtr + i);
 		}
-		
+
 		delete[] other.m_arrayPtr;
 		other.m_arrayPtr = nullptr;
 		other.m_size = 0;
@@ -316,25 +329,68 @@ public:
 		return *(m_arrayPtr + i);
 	};
 
-	//VS-studio
-	//auto operator<=>(const Vector& a) const default;
+	//Iterators
 
-	////Iterators
-	//iterator begin() noexcept;
-	//iterator end() noexcept;
-	//const_iterator begin() const noexcept;
-	//const_iterator end() const noexcept;
-	//const_iterator cbegin() const noexcept;
-	//const_iterator cend() const noexcept;
+	iterator begin() noexcept
+	{
+		return iterator(m_arrayPtr);
+	};
 
-	//reverse_iterator begin() noexcept;
-	//reverse_iterator end() noexcept;
-	//const_reverse_iterator begin() const noexcept;
-	//const_reverse_iterator end() const noexcept;
-	//const_reverse_iterator cbegin() const noexcept;
-	//const_reverse_iterator cend() const noexcept;
 
+	iterator end() noexcept
+	{
+		return iterator(m_arrayPtr + m_size);
+	};
+
+
+	const_iterator begin() const noexcept
+	{
+		return const_iterator(m_arrayPtr);
+	};
+
+	const_iterator end() const noexcept
+	{
+		return const_iterator(m_arrayPtr + m_size);
+	};
+
+	const_iterator cbegin() const noexcept
+	{
+		return const_iterator(m_arrayPtr);
+	};
+
+	const_iterator cend() const noexcept
+	{
+		return const_iterator(m_arrayPtr + m_size);
+	};
+
+	//REVERSE ITERATOR Begin
+
+	reverse_iterator rbegin() noexcept
+	{
+		return reverse_iterator(m_arrayPtr + m_size);
+	};
+
+	reverse_iterator rend() noexcept
+	{
+		return reverse_iterator(m_arrayPtr);
+	};
+
+	//reverse_const_iterator crbegin() const noexcept
+	//{
+	//	return reverse_const_iterator(m_arrayPtr + m_size);
+	//};
+	//
+	//reverse_const_iterator crend() const noexcept
+	//{
+	//	return reverse_const_iterator(m_arrayPtr);
+	//};
+	//
+	//reverse_const_iterator crbegin() const noexcept
+	//{
+	//	return reverse_const_iterator(m_arrayPtr + m_size);
+	//};
+	//
+	//reverse_const_iterator cend() const noexcept
+	//{
+	//	return reverse_const_iterator(m_arrayPtr);
 };
-
-
-

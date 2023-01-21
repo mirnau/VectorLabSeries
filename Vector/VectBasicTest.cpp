@@ -132,8 +132,8 @@ void TestBasic() {
 #if LEVEL>=9
     {
         FOX BAR;
-        Fox.data();
-        assert(&Fox[0] == Fox.data());
+        Fox.Data();
+        assert(&Fox[0] == Fox.Data());
     }
 #endif
 
@@ -153,6 +153,7 @@ void TestBasic() {
         {
             Vector<char>::reverse_iterator it = foo.rbegin(); it = foo.rend();
         }
+        //LÄRARENS UTMARKERING
         //{
         //    Vector<char>::const_iterator cit = foo.cbegin(); cit = foo.cend();
         //    cit = coo.begin(); cit = coo.end();
