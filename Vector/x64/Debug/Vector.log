@@ -1,8 +1,10 @@
 ﻿  Main.cpp
   VectBasicTest.cpp
-C:\Users\ak9137\Documents\Repos\VectorLabSeries\Vector\Vector.hpp(144,1): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\ak9137\Documents\Repos\VectorLabSeries\Vector\Vector.hpp(138,1): message : while compiling class template member function 'void Vector<char>::resize(size_t)'
-C:\Users\ak9137\Documents\Repos\VectorLabSeries\Vector\VectBasicTest.cpp(123,19): message : see reference to function template instantiation 'void Vector<char>::resize(size_t)' being compiled
-C:\Users\ak9137\Documents\Repos\VectorLabSeries\Vector\VectBasicTest.cpp(37,22): message : see reference to class template instantiation 'Vector<char>' being compiled
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\Vector.hpp(153,1): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\Vector.hpp(147,1): message : while compiling class template member function 'void Vector<char>::Resize(size_t)'
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectBasicTest.cpp(122,19): message : see reference to function template instantiation 'void Vector<char>::Resize(size_t)' being compiled
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectBasicTest.cpp(37,22): message : see reference to class template instantiation 'Vector<char>' being compiled
+  VectIterTest.cpp
+  VectorTest.cpp
   Generating Code...
-  Vector.vcxproj -> C:\Users\ak9137\Documents\Repos\VectorLabSeries\Vector\x64\Debug\Vector.exe
+  Vector.vcxproj -> C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\x64\Debug\Vector.exe
