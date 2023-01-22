@@ -1,57 +1,6 @@
-﻿  VectBasicTest.cpp
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\Vector.hpp(173,1): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\Vector.hpp(167,1): message : while compiling class template member function 'void Vector<char>::resize(size_t)'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectBasicTest.cpp(122,19): message : see reference to function template instantiation 'void Vector<char>::resize(size_t)' being compiled
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectBasicTest.cpp(37,22): message : see reference to class template instantiation 'Vector<char>' being compiled
+﻿  Main.cpp
+  VectBasicTest.cpp
+  VectIterTest.cpp
   VectorTest.cpp
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\Vector.hpp(173,1): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\Vector.hpp(167,1): message : while compiling class template member function 'void Vector<char>::resize(size_t)'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(245,22): message : see reference to function template instantiation 'void Vector<char>::resize(size_t)' being compiled
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(92,26): message : see reference to class template instantiation 'Vector<char>' being compiled
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(37,52): error C2275: 'std::remove_reference<const T>::type': expected an expression instead of a type
-          with
-          [
-              T=char
-          ]
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(180,9): message : see reference to function template instantiation 'bool IsConstOrConstRefFun<const T>(X &)' being compiled
-          with
-          [
-              T=char,
-              X=char
-          ]
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(37,17): error C2923: 'std::is_const': 'std::remove_reference<const T>::type' is not a valid template type argument for parameter '_Ty'
-          with
-          [
-              T=char
-          ]
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(37,52): message : see declaration of 'std::remove_reference<const T>::type'
-          with
-          [
-              T=char
-          ]
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(37,59): error C2955: 'std::is_const': use of class template requires template argument list
-C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.34.31933\include\type_traits(466,1): message : see declaration of 'std::is_const'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(37,59): error C2039: 'value': is not a member of 'std::is_const<_Ty>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(36,33): error C2065: 'value': undeclared identifier
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(37,52): error C2275: 'std::remove_reference<T>::type': expected an expression instead of a type
-          with
-          [
-              T=char
-          ]
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(215,9): message : see reference to function template instantiation 'bool IsConstOrConstRefFun<T>(X &)' being compiled
-          with
-          [
-              T=char,
-              X=char
-          ]
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(37,17): error C2923: 'std::is_const': 'std::remove_reference<T>::type' is not a valid template type argument for parameter '_Ty'
-          with
-          [
-              T=char
-          ]
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(37,52): message : see declaration of 'std::remove_reference<T>::type'
-          with
-          [
-              T=char
-          ]
   Generating Code...
+  Vector.vcxproj -> C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\x64\Debug\Vector.exe

@@ -19,9 +19,7 @@ public:
 	using reference = T&;
 
 private:
-	static const int _initCapacity = 4;
 	T* m_arrayPtr;
-
 	size_t m_size;
 	size_t m_capacity;
 
@@ -29,12 +27,10 @@ public:
 	////Constructors & Destrctor
 	Vector() noexcept
 	{
-		//T tArray[_initCapacity];
-		//_arrayPtr = tArray;
-		m_arrayPtr = new T[_initCapacity];
+		m_arrayPtr = nullptr;
 
 		m_size = 0;
-		m_capacity = _initCapacity;
+		m_capacity = 0;
 		invariant();
 	};
 
@@ -97,28 +93,36 @@ public:
 		return m_capacity;
 	};
 
-	T& at(size_t i) 
+	T& at(size_t i)
 	{
-		invariant();
-		if (i <= m_capacity)
-			return *(m_arrayPtr + i);
+		if (i < m_capacity)
+			return m_arrayPtr[i];
 		else
 			throw std::out_of_range("Index is out of Range");
 	};
 
 	T& at(size_t i) const
 	{
-		invariant();
-		if (i <= m_capacity)
-			return *(m_arrayPtr + i);
+		if (i < m_capacity)
+			return m_arrayPtr[i];
 		else
 			throw std::out_of_range("Index is out of Range");
 	};
 
 	void push_back(const T& c)
 	{
+		int saftey = 0;
+
+		if (m_arrayPtr == nullptr)
+		{
+			saftey = 1;
+			m_arrayPtr = new T[m_size + 1];
+		}
+
 		if (m_size + 1 > m_capacity)
-			reserve(m_capacity * 2);
+		{
+			reserve(saftey + m_capacity * 2);
+		}
 
 		*(m_arrayPtr + m_size) = c;
 		++m_size;
@@ -170,9 +174,7 @@ public:
 			return;
 		}
 
-		int difference = n - m_size;
-
-		if (difference > 0)
+		if (n > 0)
 		{
 			if (m_capacity < n)
 			{
@@ -182,15 +184,9 @@ public:
 				{
 					*(m_arrayPtr + i) = T();
 				}
+			}
 
-				m_size = n;
-				m_capacity = n;
-			}
-			else
-			{
-				m_size = n;
-				shrink_to_fit();
-			}
+			m_size = n;
 		}
 	}
 
@@ -399,7 +395,7 @@ public:
 	{
 		return const_reverse_iterator(m_arrayPtr + m_size);
 	};
-	
+
 	const_reverse_iterator crend() const noexcept
 	{
 		return const_reverse_iterator(m_arrayPtr);
