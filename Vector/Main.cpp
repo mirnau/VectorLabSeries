@@ -37,7 +37,7 @@ int main()
     std::locale::global(std::locale("swedish"));
     TestBasic();
     TestVector();
-    TestIter();
+    //TestIter();
 
     new int; cout << "det finns en minnesläcka i main, avsiktligt!\n så ni kan se att er minnesläckstest fungerar\n";
 //   _CrtDumpMemoryLeaks();

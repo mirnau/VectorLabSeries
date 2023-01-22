@@ -1,264 +1,86 @@
 ﻿  Main.cpp
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorIterator.hpp(33,3): error C3646: 'm_ptr': unknown override specifier
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorIterator.hpp(137,2): message : see reference to class template instantiation 'VectorIterator<V,CV,dir>' being compiled
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorIterator.hpp(32,1): error C2059: syntax error: '('
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorIterator.hpp(33,8): error C2059: syntax error: '('
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorIterator.hpp(44,3): error C2143: syntax error: missing ')' before ';'
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorIterator.hpp(44,3): error C2059: syntax error: ')'
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorIterator.hpp(44,3): error C2238: unexpected token(s) preceding ';'
+  VectBasicTest.cpp
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorIterator.hpp(33,3): error C3646: 'm_ptr': unknown override specifier
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorIterator.hpp(137,2): message : see reference to class template instantiation 'VectorIterator<V,CV,dir>' being compiled
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorIterator.hpp(32,1): error C2059: syntax error: '('
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorIterator.hpp(33,8): error C2059: syntax error: '('
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorIterator.hpp(44,3): error C2143: syntax error: missing ')' before ';'
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorIterator.hpp(44,3): error C2059: syntax error: ')'
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorIterator.hpp(44,3): error C2238: unexpected token(s) preceding ';'
   VectIterTest.cpp
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(26,28): error C2039: 'const_reverse_iterator': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(23,12): message : see declaration of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(26,50): error C2061: syntax error: identifier 'const_reverse_iterator'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(169,22): error C2039: 'crbegin': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(23,12): message : see declaration of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(169,35): error C3536: 'i': cannot be used before it is initialized
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(169,41): error C2039: 'crend': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(23,12): message : see declaration of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(170,22): error C2100: illegal indirection
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(172,18): error C2039: 'crbegin': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(23,12): message : see declaration of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(173,5): error C3536: 'it': cannot be used before it is initialized
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(173,5): error C2100: illegal indirection
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(174,5): error C2100: illegal indirection
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(176,5): error C2100: illegal indirection
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(177,5): error C2100: illegal indirection
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(178,5): error C2109: subscript requires array or pointer type
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(181,13): error C2039: 'crend': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(23,12): message : see declaration of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(183,5): error C2100: illegal indirection
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(184,5): error C2100: illegal indirection
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(186,5): error C2100: illegal indirection
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(187,5): error C2100: illegal indirection
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(188,5): error C2109: subscript requires array or pointer type
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(228,22): error C2039: 'crbegin': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(23,12): message : see declaration of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(229,19): error C3536: 'b': cannot be used before it is initialized
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(246,19): error C2039: 'crbegin': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(23,12): message : see declaration of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(254,10): error C3536: 'crit': cannot be used before it is initialized
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(270,19): error C2039: 'const_reverse_iterator': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(23,12): message : see declaration of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(270,42): error C2065: 'const_reverse_iterator': undeclared identifier
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(270,42): error C2146: syntax error: missing ';' before identifier 'crit3'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(270,42): error C2065: 'crit3': undeclared identifier
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(271,5): error C2065: 'crit3': undeclared identifier
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(271,5): error C2100: illegal indirection
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorIterator.hpp(33,3): error C3646: 'm_ptr': unknown override specifier
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorIterator.hpp(137,2): message : see reference to class template instantiation 'VectorIterator<V,CV,dir>' being compiled
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorIterator.hpp(32,1): error C2059: syntax error: '('
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorIterator.hpp(33,8): error C2059: syntax error: '('
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorIterator.hpp(44,3): error C2143: syntax error: missing ')' before ';'
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorIterator.hpp(44,3): error C2059: syntax error: ')'
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorIterator.hpp(44,3): error C2238: unexpected token(s) preceding ';'
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(283,24): error C2662: 'VectorIterator<Vector<char>,Vector<char>,1> Vector<char>::begin(void) noexcept': cannot convert 'this' pointer from 'const Vector<char>' to 'Vector<char> &'
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(283,20): message : Conversion loses qualifiers
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\Vector.hpp(343,11): message : see declaration of 'Vector<char>::begin'
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(283,24): message : while trying to match the argument list '()'
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(284,9): error C3536: 'cit': cannot be used before it is initialized
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(284,9): error C2100: illegal indirection
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(285,43): error C2100: illegal indirection
 C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(38,24): error C2338: static_assert failed: 'Not right type'
 C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(43,1): message : see reference to class template instantiation 'IsSameS<const char &,char &>' being compiled
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(285,9): message : see reference to variable template 'const bool IsSameCheck<char const &,char &>' being compiled
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(294,24): error C2662: 'VectorIterator<Vector<char>,Vector<const T>,-1> Vector<T>::rbegin(void) noexcept': cannot convert 'this' pointer from 'const Vector<char>' to 'Vector<char> &'
-          with
-          [
-              T=char
-          ]
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(288,9): message : see reference to variable template 'const bool IsSameCheck<char const &,char &>' being compiled
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(294,24): error C2662: 'VectorIterator<Vector<char>,Vector<char>,-1> Vector<char>::rbegin(void) noexcept': cannot convert 'this' pointer from 'const Vector<char>' to 'Vector<char> &'
 C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(294,20): message : Conversion loses qualifiers
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\Vector.hpp(368,19): message : see declaration of 'Vector<char>::rbegin'
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\Vector.hpp(365,19): message : see declaration of 'Vector<char>::rbegin'
 C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(294,24): message : while trying to match the argument list '()'
 C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(295,9): error C3536: 'cit': cannot be used before it is initialized
 C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(295,9): error C2100: illegal indirection
 C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(296,43): error C2100: illegal indirection
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(297,25): error C2039: 'crbegin': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(23,12): message : see declaration of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(298,9): error C3536: 'cit2': cannot be used before it is initialized
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(298,9): error C2100: illegal indirection
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(299,43): error C2100: illegal indirection
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(314,25): error C2662: 'VectorIterator<Vector<D>,Vector<const T>,-1> Vector<T>::rbegin(void) noexcept': cannot convert 'this' pointer from 'const Vector<D>' to 'Vector<D> &'
-          with
-          [
-              T=D
-          ]
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(306,25): error C2662: 'VectorIterator<Vector<D>,Vector<D>,1> Vector<D>::begin(void) noexcept': cannot convert 'this' pointer from 'const Vector<D>' to 'Vector<D> &'
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(306,19): message : Conversion loses qualifiers
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\Vector.hpp(343,11): message : see declaration of 'Vector<D>::begin'
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(306,25): message : while trying to match the argument list '()'
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(309,9): error C3536: 'ci': cannot be used before it is initialized
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(314,25): error C2662: 'VectorIterator<Vector<D>,Vector<D>,-1> Vector<D>::rbegin(void) noexcept': cannot convert 'this' pointer from 'const Vector<D>' to 'Vector<D> &'
 C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(314,19): message : Conversion loses qualifiers
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\Vector.hpp(368,19): message : see declaration of 'Vector<D>::rbegin'
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\Vector.hpp(365,19): message : see declaration of 'Vector<D>::rbegin'
 C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(314,25): message : while trying to match the argument list '()'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(315,26): error C2039: 'crbegin': is not a member of 'Vector<D>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(301,5): message : see declaration of 'Vector<D>'
 C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(317,9): error C3536: 'ci': cannot be used before it is initialized
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(318,9): error C3536: 'ci2': cannot be used before it is initialized
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(333,7): error C2039: 'reserve': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(23,12): message : see declaration of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(353,7): error C2039: 'reserve': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(23,12): message : see declaration of 'Vector<char>'
 C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(419,66): error C2338: static_assert failed: 'should be with const'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(428,64): message : see reference to class template instantiation 'CheckTypedefsConst<VectorIterator<Vector<int>,const Vector<int>,1>>' being compiled
 C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(420,64): error C2338: static_assert failed: 'should be with const'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(430,49): error C2039: 'const_reverse_iterator': is not a member of 'Vector<int>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(427,31): message : see declaration of 'Vector<int>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(430,71): error C2065: 'const_reverse_iterator': undeclared identifier
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(430,35): error C2923: 'CheckTypedefsConst': 'const_reverse_iterator' is not a valid template type argument for parameter 'Iter'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(430,71): message : see declaration of 'const_reverse_iterator'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(430,72): error C2990: 'CheckTypedefsConst': non-class template has already been declared as a class template
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(415,1): message : see declaration of 'CheckTypedefsConst'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(430,72): error C2946: explicit instantiation; 'CheckTypedefsConst' is not a template-class specialization
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(444,15): error C2065: 'CRIT': undeclared identifier
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(444,5): error C2923: 'IsSameFun': 'CRIT' is not a valid template type argument for parameter 'T'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(444,15): message : see declaration of 'CRIT'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(444,22): error C2955: 'IsSameFun': use of class template requires template argument list
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(29,1): message : see declaration of 'IsSameFun'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(444,28): error C2662: 'VectorIterator<Vector<char>,Vector<const T>,-1> Vector<T>::rbegin(void) noexcept': cannot convert 'this' pointer from 'const Vector<char>' to 'Vector<char> &'
-          with
-          [
-              T=char
-          ]
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(441,27): error C2662: 'VectorIterator<Vector<char>,Vector<char>,1> Vector<char>::begin(void) noexcept': cannot convert 'this' pointer from 'const Vector<char>' to 'Vector<char> &'
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(441,23): message : Conversion loses qualifiers
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\Vector.hpp(343,11): message : see declaration of 'Vector<char>::begin'
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(441,27): message : while trying to match the argument list '()'
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(441,21): error C2672: 'IsSameFun<CIT>::e': no matching overloaded function found
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(31,17): message : could be 'void IsSameFun<CIT>::e(V)'
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(444,28): error C2662: 'VectorIterator<Vector<char>,Vector<char>,-1> Vector<char>::rbegin(void) noexcept': cannot convert 'this' pointer from 'const Vector<char>' to 'Vector<char> &'
 C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(444,24): message : Conversion loses qualifiers
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\Vector.hpp(368,19): message : see declaration of 'Vector<char>::rbegin'
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\Vector.hpp(365,19): message : see declaration of 'Vector<char>::rbegin'
 C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(444,28): message : while trying to match the argument list '()'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(444,22): error C2672: 'IsSameFun<T>::e': no matching overloaded function found
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(31,17): message : could be 'void IsSameFun<T>::e(V)'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(445,15): error C2065: 'CRIT': undeclared identifier
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(445,5): error C2923: 'IsSameFun': 'CRIT' is not a valid template type argument for parameter 'T'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(445,15): message : see declaration of 'CRIT'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(445,22): error C2955: 'IsSameFun': use of class template requires template argument list
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(29,1): message : see declaration of 'IsSameFun'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(445,28): error C2039: 'crbegin': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(23,12): message : see declaration of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(445,22): error C2672: 'IsSameFun<T>::e': no matching overloaded function found
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(31,17): message : could be 'void IsSameFun<T>::e(V)'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(451,15): error C2065: 'CRIT': undeclared identifier
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(451,5): error C2923: 'IsSameFun': 'CRIT' is not a valid template type argument for parameter 'T'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(451,15): message : see declaration of 'CRIT'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(451,22): error C2955: 'IsSameFun': use of class template requires template argument list
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(29,1): message : see declaration of 'IsSameFun'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(451,28): error C2662: 'VectorIterator<Vector<char>,Vector<const T>,-1> Vector<T>::rend(void) noexcept': cannot convert 'this' pointer from 'const Vector<char>' to 'Vector<char> &'
-          with
-          [
-              T=char
-          ]
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(444,22): error C2672: 'IsSameFun<CRIT>::e': no matching overloaded function found
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(31,17): message : could be 'void IsSameFun<CRIT>::e(V)'
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(448,27): error C2662: 'VectorIterator<Vector<char>,Vector<char>,1> Vector<char>::end(void) noexcept': cannot convert 'this' pointer from 'const Vector<char>' to 'Vector<char> &'
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(448,23): message : Conversion loses qualifiers
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\Vector.hpp(348,11): message : see declaration of 'Vector<char>::end'
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(448,27): message : while trying to match the argument list '()'
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(448,21): error C2672: 'IsSameFun<CIT>::e': no matching overloaded function found
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(31,17): message : could be 'void IsSameFun<CIT>::e(V)'
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(451,28): error C2662: 'VectorIterator<Vector<char>,Vector<char>,-1> Vector<char>::rend(void) noexcept': cannot convert 'this' pointer from 'const Vector<char>' to 'Vector<char> &'
 C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(451,24): message : Conversion loses qualifiers
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\Vector.hpp(373,19): message : see declaration of 'Vector<char>::rend'
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\Vector.hpp(370,19): message : see declaration of 'Vector<char>::rend'
 C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(451,28): message : while trying to match the argument list '()'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(451,22): error C2672: 'IsSameFun<T>::e': no matching overloaded function found
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(31,17): message : could be 'void IsSameFun<T>::e(V)'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(452,15): error C2065: 'CRIT': undeclared identifier
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(452,5): error C2923: 'IsSameFun': 'CRIT' is not a valid template type argument for parameter 'T'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(452,15): message : see declaration of 'CRIT'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(452,22): error C2955: 'IsSameFun': use of class template requires template argument list
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(29,1): message : see declaration of 'IsSameFun'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(452,28): error C2039: 'crend': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(23,12): message : see declaration of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(452,22): error C2672: 'IsSameFun<T>::e': no matching overloaded function found
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(31,17): message : could be 'void IsSameFun<T>::e(V)'
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(451,22): error C2672: 'IsSameFun<CRIT>::e': no matching overloaded function found
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(31,17): message : could be 'void IsSameFun<CRIT>::e(V)'
   VectorTest.cpp
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(78,7): error C2039: 'reserve': is not a member of 'Vector<C>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(74,5): message : see declaration of 'Vector<C>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(101,9): error C2039: 'capacity': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(92,9): message : see declaration of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(102,9): error C2039: 'data': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(92,9): message : see declaration of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(109,9): error C2039: 'data': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(92,9): message : see declaration of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(142,23): error C2039: 'data': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(92,9): message : see declaration of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(144,9): error C3536: 'xxx': cannot be used before it is initialized
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(144,9): error C2039: 'data': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(92,9): message : see declaration of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(164,9): error C2039: 'capacity': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(92,9): message : see declaration of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(204,30): error C2039: 'size': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(92,9): message : see declaration of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(212,15): error C3892: 'vecBar': you cannot assign to a variable that is const
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(223,9): error C2039: 'data': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(92,9): message : see declaration of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(224,9): error C2039: 'data': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(92,9): message : see declaration of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(224,9): error C2672: 'IsConstOrConstRefFun': no matching overloaded function found
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(36,6): message : could be 'bool IsConstOrConstRefFun(X &)'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(225,9): error C2039: 'data': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(92,9): message : see declaration of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(225,9): error C2672: 'IsConstOrConstRefFun': no matching overloaded function found
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(36,6): message : could be 'bool IsConstOrConstRefFun(X &)'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(243,16): error C2039: 'shrink_to_fit': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(92,9): message : see declaration of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(244,27): error C2039: 'data': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(92,9): message : see declaration of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(245,16): error C2039: 'resize': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(92,9): message : see declaration of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(247,9): error C3536: 'buf': cannot be used before it is initialized
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(247,9): error C2039: 'data': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(92,9): message : see declaration of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(247,9): error C2039: 'capacity': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(92,9): message : see declaration of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(247,9): error C2039: 'size': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(92,9): message : see declaration of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(248,22): error C2039: 'data': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(92,9): message : see declaration of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(249,16): error C2039: 'resize': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(92,9): message : see declaration of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(250,9): error C2039: 'data': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(92,9): message : see declaration of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(250,9): error C2039: 'capacity': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(92,9): message : see declaration of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(250,9): error C2039: 'size': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(92,9): message : see declaration of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(267,25): error C2039: 'data': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(92,9): message : see declaration of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(268,25): error C2039: 'data': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(92,9): message : see declaration of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(270,9): error C3536: 'fptr': cannot be used before it is initialized
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(270,9): error C2039: 'data': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(92,9): message : see declaration of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(270,9): error C3536: 'bptr': cannot be used before it is initialized
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(283,5): error C2039: 'size': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(92,9): message : see declaration of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(283,5): error C2039: 'capacity': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(92,9): message : see declaration of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(284,5): error C2039: 'size': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(92,9): message : see declaration of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(287,16): error C2039: 'size': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(92,9): message : see declaration of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(287,35): error C2039: 'capacity': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(92,9): message : see declaration of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(287,53): error C2039: 'size': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(92,9): message : see declaration of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(289,5): error C2039: 'size': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(92,9): message : see declaration of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(292,20): error C2039: 'capacity': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(92,9): message : see declaration of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(293,20): error C2039: 'size': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(92,9): message : see declaration of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(295,5): error C3536: 'siz': cannot be used before it is initialized
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(295,31): error C3536: 'cap': cannot be used before it is initialized
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(298,9): error C2039: 'capacity': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(92,9): message : see declaration of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(299,9): error C2039: 'size': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(92,9): message : see declaration of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(303,5): error C2039: 'capacity': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(92,9): message : see declaration of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(304,5): error C2039: 'size': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(92,9): message : see declaration of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(359,23): error C2039: 'capacity': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(92,9): message : see declaration of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(360,23): error C2039: 'size': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(92,9): message : see declaration of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(362,12): error C2039: 'reserve': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(92,9): message : see declaration of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(362,23): error C3536: 'cap': cannot be used before it is initialized
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(364,5): error C2039: 'capacity': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(92,9): message : see declaration of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(365,5): error C3536: 'siz': cannot be used before it is initialized
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(365,5): error C2039: 'size': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(92,9): message : see declaration of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(367,12): error C2039: 'reserve': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(92,9): message : see declaration of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(369,5): error C2039: 'capacity': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(92,9): message : see declaration of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(370,5): error C2039: 'size': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(92,9): message : see declaration of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(374,27): error C2039: 'capacity': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(92,9): message : see declaration of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(375,27): error C2039: 'size': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(92,9): message : see declaration of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(377,16): error C2039: 'reserve': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(92,9): message : see declaration of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(377,28): error C3536: 'cap': cannot be used before it is initialized
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(379,9): error C2039: 'capacity': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(92,9): message : see declaration of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(380,9): error C3536: 'siz': cannot be used before it is initialized
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(380,9): error C2039: 'size': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(92,9): message : see declaration of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(385,12): error C2039: 'reserve': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(92,9): message : see declaration of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(387,18): error C2039: 'capacity': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(92,9): message : see declaration of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(388,18): error C2039: 'size': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(92,9): message : see declaration of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(390,12): error C2039: 'shrink_to_fit': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(92,9): message : see declaration of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(392,5): error C2039: 'capacity': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(92,9): message : see declaration of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(392,5): error C2039: 'size': is not a member of 'Vector<char>'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(92,9): message : see declaration of 'Vector<char>'
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorIterator.hpp(33,3): error C3646: 'm_ptr': unknown override specifier
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorIterator.hpp(137,2): message : see reference to class template instantiation 'VectorIterator<V,CV,dir>' being compiled
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorIterator.hpp(32,1): error C2059: syntax error: '('
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorIterator.hpp(33,8): error C2059: syntax error: '('
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorIterator.hpp(44,3): error C2143: syntax error: missing ')' before ';'
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorIterator.hpp(44,3): error C2059: syntax error: ')'
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorIterator.hpp(44,3): error C2238: unexpected token(s) preceding ';'
   Generating Code...

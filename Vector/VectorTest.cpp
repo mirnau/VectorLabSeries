@@ -39,7 +39,7 @@ bool IsConstOrConstRefFun(X& x) {
 
 template<class X>
 void CheckVec(const Vector<X>& v) {
-    assert(v.Invariant());
+    assert(v.invariant());
     assert(v.size() <= v.capacity());
     for (size_t i = 0; i < v.capacity(); ++i)
         auto x = v[i];

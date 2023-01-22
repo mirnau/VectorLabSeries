@@ -17,10 +17,10 @@ private:
 	size_t m_capacity;
 
 public:
-	using iterator = VectorIterator<Vector<T>, const Vector<T>, 1>;
+	using iterator = VectorIterator<Vector<T>, Vector<T>, 1>;
 	using const_iterator = VectorIterator<Vector<T>, const Vector<T>, 1>;
-	using reverse_iterator = VectorIterator<Vector<T>, Vector<const T>, -1>;
-	using reverse_const_iterator = VectorIterator<Vector<T>, Vector<const T>, -1>;
+	using reverse_iterator = VectorIterator<Vector<T>, Vector<T>, -1>;
+	using const_reverse_iterator = VectorIterator<Vector<T>, const Vector< T>, -1>;
 	using value_type = T;
 
 	////Constructors & Destrctor
@@ -32,7 +32,7 @@ public:
 
 		m_size = 0;
 		m_capacity = _initCapacity;
-		Invariant();
+		invariant();
 	};
 
 	Vector(const char* other)
@@ -51,15 +51,15 @@ public:
 			m_arrayPtr[i] = other[i];
 		}
 
-		Invariant();
+		invariant();
 	};
 
 	Vector(const Vector& other)
 	{
-		this->m_size = other.Size();
-		this->m_capacity = other.Capacity();
+		this->m_size = other.size();
+		this->m_capacity = other.capacity();
 
-		m_arrayPtr = new T[other.Size()];
+		m_arrayPtr = new T[other.size()];
 
 		CopyArray(other);
 	};
@@ -72,31 +72,40 @@ public:
 		other.m_arrayPtr = nullptr;
 		other.m_size = 0;
 		other.m_capacity = 0;
-		Invariant();
+		invariant();
 	};
 
 	~Vector() noexcept
 	{
-		Invariant();
+		invariant();
 		delete[] m_arrayPtr;
 	};
 
 	////Methods
-	size_t Size() const noexcept
+	size_t size() const noexcept
 	{
-		Invariant();
+		invariant();
 		return m_size;
 	};
 
-	size_t Capacity() const noexcept
+	size_t capacity() const noexcept
 	{
-		Invariant();
+		invariant();
 		return m_capacity;
 	};
 
-	const T& at(size_t i) const
+	T& at(size_t i) 
 	{
-		Invariant();
+		invariant();
+		if (i <= m_capacity)
+			return *(m_arrayPtr + i);
+		else
+			throw std::out_of_range("Index is out of Range");
+	};
+
+	T& at(size_t i) const
+	{
+		invariant();
 		if (i <= m_capacity)
 			return *(m_arrayPtr + i);
 		else
@@ -106,23 +115,23 @@ public:
 	void push_back(const T& c)
 	{
 		if (m_size + 1 > m_capacity)
-			Reserve(m_capacity * 2);
+			reserve(m_capacity * 2);
 
 		*(m_arrayPtr + m_size) = c;
 		++m_size;
-		Invariant();
+		invariant();
 	};
 
 	void CopyArray(const Vector& other)
 	{
-		for (size_t i = 0; i < other.Size(); i++)
+		for (size_t i = 0; i < other.size(); i++)
 		{
 			*(m_arrayPtr + i) = *(other.m_arrayPtr + i);
 		}
-		Invariant();
+		invariant();
 	};
 
-	void Reserve(size_t n)
+	void reserve(size_t n)
 	{
 		if (n > m_capacity)
 		{
@@ -140,7 +149,7 @@ public:
 			a = nullptr;
 		}
 
-		Invariant();
+		invariant();
 	};
 
 	friend void swap(Vector<T>& lhs, Vector<T>& rhs)
@@ -151,7 +160,7 @@ public:
 
 	};
 
-	void Resize(size_t n)
+	void resize(size_t n)
 	{
 		if (n == m_size)
 		{
@@ -164,7 +173,7 @@ public:
 		{
 			if (m_capacity < n)
 			{
-				Reserve(n);
+				reserve(n);
 
 				for (size_t i = m_size; i < n; i++)
 				{
@@ -177,12 +186,12 @@ public:
 			else
 			{
 				m_size = n;
-				ShrinkToFit();
+				shrink_to_fit();
 			}
 		}
 	}
 
-	void ShrinkToFit()
+	void shrink_to_fit()
 	{
 		T* temp = new T[m_size + 1]{};
 
@@ -196,15 +205,15 @@ public:
 		temp = nullptr;
 
 		m_capacity = m_size;
-		Invariant();
+		invariant();
 	}
 
-	const T* Data() const noexcept
+	const T* data() const noexcept
 	{
 		return m_arrayPtr;
 	}
 
-	bool Invariant() const
+	bool invariant() const
 	{
 		//if (!(_capacity >= _size))
 		//	return false;
@@ -227,9 +236,9 @@ public:
 
 	friend int operator<=>(const Vector& lhs, const Vector& rhs)
 	{
-		if (lhs.Size() > rhs.Size())
+		if (lhs.size() > rhs.size())
 			return 1;
-		else if (lhs.Size() < rhs.Size())
+		else if (lhs.size() < rhs.size())
 			return -1;
 		else
 			return 0;
@@ -240,17 +249,17 @@ public:
 		if (this == &other)
 			return *this;
 
-		if (other.Size() > m_capacity) {
-			m_size = other.Size();
-			Reserve(m_size);
+		if (other.size() > m_capacity) {
+			m_size = other.size();
+			reserve(m_size);
 		}
 
-		for (size_t i = 0; i < other.Size(); i++)
+		for (size_t i = 0; i < other.size(); i++)
 			*(m_arrayPtr + i) = *(other.m_arrayPtr + i);
 
 		m_size = other.m_size;
 
-		Invariant();
+		invariant();
 		return *this;
 	};
 
@@ -258,13 +267,13 @@ public:
 	{
 		if (*this == other)
 			return *this;
-		if (other.Size() > m_capacity)
+		if (other.size() > m_capacity)
 		{
-			Reserve(other.Size());
+			reserve(other.size());
 			m_size = m_capacity;
 		}
 
-		for (size_t i = 0; i < other.Size(); i++)
+		for (size_t i = 0; i < other.size(); i++)
 		{
 			*(m_arrayPtr + i) = *(other.m_arrayPtr + i);
 		}
@@ -274,7 +283,7 @@ public:
 		other.m_size = 0;
 		other.m_capacity = 0;
 
-		Invariant();
+		invariant();
 		return *this;
 	};
 
@@ -285,7 +294,7 @@ public:
 		Vector<T> greater;
 		Vector<T> smaller;
 
-		if (lhs.Size() >= other.Size()) {
+		if (lhs.size() >= other.size()) {
 			greater = lhs;
 			smaller = other;
 		}
@@ -312,20 +321,20 @@ public:
 
 	friend std::ostream& operator<<(std::ostream& cout, const Vector& other)
 	{
-		for (size_t i = 0; i < other.Size(); ++i)
+		for (size_t i = 0; i < other.size(); ++i)
 			cout << other[i];
 		return cout;
 	};
 
 	const T& operator[](size_t i) const
 	{
-		Invariant();
+		invariant();
 		return *(m_arrayPtr + i);
 	};
 
 	T& operator[](size_t i)
 	{
-		Invariant();
+		invariant();
 		return *(m_arrayPtr + i);
 	};
 
@@ -336,31 +345,19 @@ public:
 		return iterator(m_arrayPtr);
 	};
 
-
 	iterator end() noexcept
 	{
 		return iterator(m_arrayPtr + m_size);
 	};
 
-
-	const_iterator begin() const noexcept
-	{
-		return const_iterator(m_arrayPtr);
-	};
-
-	const_iterator end() const noexcept
-	{
-		return const_iterator(m_arrayPtr + m_size);
-	};
-
 	const_iterator cbegin() const noexcept
 	{
-		return const_iterator(m_arrayPtr);
+		return const_iterator(begin());
 	};
 
 	const_iterator cend() const noexcept
 	{
-		return const_iterator(m_arrayPtr + m_size);
+		return const_iterator(end());
 	};
 
 	//REVERSE ITERATOR Begin
@@ -375,22 +372,13 @@ public:
 		return reverse_iterator(m_arrayPtr);
 	};
 
-	//reverse_const_iterator crbegin() const noexcept
-	//{
-	//	return reverse_const_iterator(m_arrayPtr + m_size);
-	//};
-	//
-	//reverse_const_iterator crend() const noexcept
-	//{
-	//	return reverse_const_iterator(m_arrayPtr);
-	//};
-	//
-	//reverse_const_iterator crbegin() const noexcept
-	//{
-	//	return reverse_const_iterator(m_arrayPtr + m_size);
-	//};
-	//
-	//reverse_const_iterator cend() const noexcept
-	//{
-	//	return reverse_const_iterator(m_arrayPtr);
+	const_reverse_iterator crbegin() const noexcept
+	{
+		return const_reverse_iterator(rbegin());
+	};
+	
+	const_reverse_iterator crend() const noexcept
+	{
+		return const_reverse_iterator(rend());
+	};
 };

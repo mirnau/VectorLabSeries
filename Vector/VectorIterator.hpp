@@ -7,7 +7,7 @@ class VectorIterator
 {
 public:
 	using iterator_category = std::random_access_iterator_tag;
-	using value_type = typename V::value_type;
+	using value_type = V::value_type;
 	using pointer = value_type*;
 	using reference = value_type&;
 	using difference_type = std::ptrdiff_t;
@@ -27,6 +27,20 @@ public:
 		m_ptr(nullptr)
 	{
 
+	};
+
+	VectorIterator(VectorIterator& other)
+		m_ptr(other.m_ptr)
+	{
+
+	};
+
+
+
+	VectorIterator& operator=(VectorIterator& other)
+	{
+		m_ptr = other.m_ptr;
+		return *this;
 	};
 
 	//Takes an instance and returns a copy
@@ -62,7 +76,7 @@ public:
 		m_ptr += dir;
 		return *this;
 	};
-	
+
 	VectorIterator& operator--()
 	{
 		m_ptr -= dir;
@@ -95,7 +109,7 @@ public:
 	{
 		return VectorIterator(m_ptr + rhs);
 	};
-	
+
 	VectorIterator operator-(difference_type rhs) const
 	{
 		return VectorIterator(m_ptr - rhs);

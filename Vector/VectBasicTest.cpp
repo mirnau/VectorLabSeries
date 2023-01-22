@@ -35,15 +35,15 @@ void TestBasic() {
 #if LEVEL>=1
     {
         Vector<char> v;
-        assert(v.Size() == 0);
-        assert(v.Capacity() >= 0);
-        assert(v.Invariant());
+        assert(v.size() == 0);
+        assert(v.capacity() >= 0);
+        assert(v.invariant());
     }
 #endif
 #if LEVEL>=2
     {
         Vector<char> foo("foo");
-        assert(foo.Size() == 3);
+        assert(foo.size() == 3);
         cout << foo;
         assert(foo == foo);
         Vector<char> bar("bar");
@@ -65,12 +65,12 @@ void TestBasic() {
     {
         Vector<char> foo("foo"), bar("bar");
         Vector<char> foo2(foo);
-        assert(foo2.Invariant() && foo2.Size() == 3);
+        assert(foo2.invariant() && foo2.size() == 3);
         assert(foo == foo2);
         foo2 = bar;
         assert(foo2 == bar);
-        assert(foo2.Size() == 3);
-        assert(foo2.Capacity() >= 3);
+        assert(foo2.size() == 3);
+        assert(foo2.capacity() >= 3);
     }
 #endif
 #if LEVEL>=5
@@ -105,23 +105,23 @@ void TestBasic() {
     {
         FOX BAR;
         Vect Fox2(std::move(Fox));
-        assert(Fox2.Invariant() && Fox.Invariant());
+        assert(Fox2.invariant() && Fox.invariant());
         assert(Fox2 == "Fox" && Fox == "");
         Bar = std::move(Fox2);
-        assert(Fox2.Invariant() && Bar.Invariant());
+        assert(Fox2.invariant() && Bar.invariant());
         assert(Bar == "Fox" && Fox2 == "");
     }
 #endif
 #if LEVEL>=8
     {
         FOX BAR;
-        Fox.Reserve(100);
-        assert(Fox.Capacity() == 100);
-        Fox.ShrinkToFit();
-        assert(Fox.Capacity() == 3);
-        Fox.Resize(10);
-        assert(Fox.Capacity() >= 10);
-        assert(Fox.Size() == 10);
+        Fox.reserve(100);
+        assert(Fox.capacity() == 100);
+        Fox.shrink_to_fit();
+        assert(Fox.capacity() == 3);
+        Fox.resize(10);
+        assert(Fox.capacity() >= 10);
+        assert(Fox.size() == 10);
         assert(Fox[9] == 0);
         Fox = "Fox";
         Bar = "Bar";
@@ -132,8 +132,8 @@ void TestBasic() {
 #if LEVEL>=9
     {
         FOX BAR;
-        Fox.Data();
-        assert(&Fox[0] == Fox.Data());
+        Fox.data();
+        assert(&Fox[0] == Fox.data());
     }
 #endif
 
