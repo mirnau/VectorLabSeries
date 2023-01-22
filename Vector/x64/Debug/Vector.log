@@ -1,86 +1,57 @@
-﻿  Main.cpp
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorIterator.hpp(33,3): error C3646: 'm_ptr': unknown override specifier
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorIterator.hpp(137,2): message : see reference to class template instantiation 'VectorIterator<V,CV,dir>' being compiled
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorIterator.hpp(32,1): error C2059: syntax error: '('
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorIterator.hpp(33,8): error C2059: syntax error: '('
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorIterator.hpp(44,3): error C2143: syntax error: missing ')' before ';'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorIterator.hpp(44,3): error C2059: syntax error: ')'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorIterator.hpp(44,3): error C2238: unexpected token(s) preceding ';'
-  VectBasicTest.cpp
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorIterator.hpp(33,3): error C3646: 'm_ptr': unknown override specifier
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorIterator.hpp(137,2): message : see reference to class template instantiation 'VectorIterator<V,CV,dir>' being compiled
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorIterator.hpp(32,1): error C2059: syntax error: '('
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorIterator.hpp(33,8): error C2059: syntax error: '('
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorIterator.hpp(44,3): error C2143: syntax error: missing ')' before ';'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorIterator.hpp(44,3): error C2059: syntax error: ')'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorIterator.hpp(44,3): error C2238: unexpected token(s) preceding ';'
-  VectIterTest.cpp
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorIterator.hpp(33,3): error C3646: 'm_ptr': unknown override specifier
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorIterator.hpp(137,2): message : see reference to class template instantiation 'VectorIterator<V,CV,dir>' being compiled
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorIterator.hpp(32,1): error C2059: syntax error: '('
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorIterator.hpp(33,8): error C2059: syntax error: '('
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorIterator.hpp(44,3): error C2143: syntax error: missing ')' before ';'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorIterator.hpp(44,3): error C2059: syntax error: ')'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorIterator.hpp(44,3): error C2238: unexpected token(s) preceding ';'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(283,24): error C2662: 'VectorIterator<Vector<char>,Vector<char>,1> Vector<char>::begin(void) noexcept': cannot convert 'this' pointer from 'const Vector<char>' to 'Vector<char> &'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(283,20): message : Conversion loses qualifiers
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\Vector.hpp(343,11): message : see declaration of 'Vector<char>::begin'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(283,24): message : while trying to match the argument list '()'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(284,9): error C3536: 'cit': cannot be used before it is initialized
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(284,9): error C2100: illegal indirection
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(285,43): error C2100: illegal indirection
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(38,24): error C2338: static_assert failed: 'Not right type'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(43,1): message : see reference to class template instantiation 'IsSameS<const char &,char &>' being compiled
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(288,9): message : see reference to variable template 'const bool IsSameCheck<char const &,char &>' being compiled
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(294,24): error C2662: 'VectorIterator<Vector<char>,Vector<char>,-1> Vector<char>::rbegin(void) noexcept': cannot convert 'this' pointer from 'const Vector<char>' to 'Vector<char> &'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(294,20): message : Conversion loses qualifiers
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\Vector.hpp(365,19): message : see declaration of 'Vector<char>::rbegin'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(294,24): message : while trying to match the argument list '()'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(295,9): error C3536: 'cit': cannot be used before it is initialized
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(295,9): error C2100: illegal indirection
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(296,43): error C2100: illegal indirection
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(306,25): error C2662: 'VectorIterator<Vector<D>,Vector<D>,1> Vector<D>::begin(void) noexcept': cannot convert 'this' pointer from 'const Vector<D>' to 'Vector<D> &'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(306,19): message : Conversion loses qualifiers
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\Vector.hpp(343,11): message : see declaration of 'Vector<D>::begin'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(306,25): message : while trying to match the argument list '()'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(309,9): error C3536: 'ci': cannot be used before it is initialized
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(314,25): error C2662: 'VectorIterator<Vector<D>,Vector<D>,-1> Vector<D>::rbegin(void) noexcept': cannot convert 'this' pointer from 'const Vector<D>' to 'Vector<D> &'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(314,19): message : Conversion loses qualifiers
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\Vector.hpp(365,19): message : see declaration of 'Vector<D>::rbegin'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(314,25): message : while trying to match the argument list '()'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(317,9): error C3536: 'ci': cannot be used before it is initialized
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(419,66): error C2338: static_assert failed: 'should be with const'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(420,64): error C2338: static_assert failed: 'should be with const'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(441,27): error C2662: 'VectorIterator<Vector<char>,Vector<char>,1> Vector<char>::begin(void) noexcept': cannot convert 'this' pointer from 'const Vector<char>' to 'Vector<char> &'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(441,23): message : Conversion loses qualifiers
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\Vector.hpp(343,11): message : see declaration of 'Vector<char>::begin'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(441,27): message : while trying to match the argument list '()'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(441,21): error C2672: 'IsSameFun<CIT>::e': no matching overloaded function found
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(31,17): message : could be 'void IsSameFun<CIT>::e(V)'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(444,28): error C2662: 'VectorIterator<Vector<char>,Vector<char>,-1> Vector<char>::rbegin(void) noexcept': cannot convert 'this' pointer from 'const Vector<char>' to 'Vector<char> &'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(444,24): message : Conversion loses qualifiers
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\Vector.hpp(365,19): message : see declaration of 'Vector<char>::rbegin'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(444,28): message : while trying to match the argument list '()'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(444,22): error C2672: 'IsSameFun<CRIT>::e': no matching overloaded function found
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(31,17): message : could be 'void IsSameFun<CRIT>::e(V)'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(448,27): error C2662: 'VectorIterator<Vector<char>,Vector<char>,1> Vector<char>::end(void) noexcept': cannot convert 'this' pointer from 'const Vector<char>' to 'Vector<char> &'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(448,23): message : Conversion loses qualifiers
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\Vector.hpp(348,11): message : see declaration of 'Vector<char>::end'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(448,27): message : while trying to match the argument list '()'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(448,21): error C2672: 'IsSameFun<CIT>::e': no matching overloaded function found
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(31,17): message : could be 'void IsSameFun<CIT>::e(V)'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(451,28): error C2662: 'VectorIterator<Vector<char>,Vector<char>,-1> Vector<char>::rend(void) noexcept': cannot convert 'this' pointer from 'const Vector<char>' to 'Vector<char> &'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(451,24): message : Conversion loses qualifiers
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\Vector.hpp(370,19): message : see declaration of 'Vector<char>::rend'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(451,28): message : while trying to match the argument list '()'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(451,22): error C2672: 'IsSameFun<CRIT>::e': no matching overloaded function found
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(31,17): message : could be 'void IsSameFun<CRIT>::e(V)'
+﻿  VectBasicTest.cpp
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\Vector.hpp(173,1): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\Vector.hpp(167,1): message : while compiling class template member function 'void Vector<char>::resize(size_t)'
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectBasicTest.cpp(122,19): message : see reference to function template instantiation 'void Vector<char>::resize(size_t)' being compiled
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectBasicTest.cpp(37,22): message : see reference to class template instantiation 'Vector<char>' being compiled
   VectorTest.cpp
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorIterator.hpp(33,3): error C3646: 'm_ptr': unknown override specifier
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorIterator.hpp(137,2): message : see reference to class template instantiation 'VectorIterator<V,CV,dir>' being compiled
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorIterator.hpp(32,1): error C2059: syntax error: '('
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorIterator.hpp(33,8): error C2059: syntax error: '('
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorIterator.hpp(44,3): error C2143: syntax error: missing ')' before ';'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorIterator.hpp(44,3): error C2059: syntax error: ')'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorIterator.hpp(44,3): error C2238: unexpected token(s) preceding ';'
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\Vector.hpp(173,1): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\Vector.hpp(167,1): message : while compiling class template member function 'void Vector<char>::resize(size_t)'
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(245,22): message : see reference to function template instantiation 'void Vector<char>::resize(size_t)' being compiled
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(92,26): message : see reference to class template instantiation 'Vector<char>' being compiled
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(37,52): error C2275: 'std::remove_reference<const T>::type': expected an expression instead of a type
+          with
+          [
+              T=char
+          ]
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(180,9): message : see reference to function template instantiation 'bool IsConstOrConstRefFun<const T>(X &)' being compiled
+          with
+          [
+              T=char,
+              X=char
+          ]
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(37,17): error C2923: 'std::is_const': 'std::remove_reference<const T>::type' is not a valid template type argument for parameter '_Ty'
+          with
+          [
+              T=char
+          ]
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(37,52): message : see declaration of 'std::remove_reference<const T>::type'
+          with
+          [
+              T=char
+          ]
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(37,59): error C2955: 'std::is_const': use of class template requires template argument list
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.34.31933\include\type_traits(466,1): message : see declaration of 'std::is_const'
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(37,59): error C2039: 'value': is not a member of 'std::is_const<_Ty>'
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(36,33): error C2065: 'value': undeclared identifier
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(37,52): error C2275: 'std::remove_reference<T>::type': expected an expression instead of a type
+          with
+          [
+              T=char
+          ]
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(215,9): message : see reference to function template instantiation 'bool IsConstOrConstRefFun<T>(X &)' being compiled
+          with
+          [
+              T=char,
+              X=char
+          ]
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(37,17): error C2923: 'std::is_const': 'std::remove_reference<T>::type' is not a valid template type argument for parameter '_Ty'
+          with
+          [
+              T=char
+          ]
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(37,52): message : see declaration of 'std::remove_reference<T>::type'
+          with
+          [
+              T=char
+          ]
   Generating Code...

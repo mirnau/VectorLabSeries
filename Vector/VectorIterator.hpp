@@ -2,14 +2,14 @@
 #include <utility>
 #include<vector>
 
-template<class V, class CV, int dir>
+template<class Vector, int dir>
 class VectorIterator
 {
 public:
 	using iterator_category = std::random_access_iterator_tag;
-	using value_type = V::value_type;
-	using pointer = value_type*;
-	using reference = value_type&;
+	using value_type = Vector::value_type;
+	using pointer = Vector::pointer;
+	using reference = Vector::reference;
 	using difference_type = std::ptrdiff_t;
 
 private:
@@ -22,26 +22,15 @@ public:
 
 	};
 
-
 	VectorIterator() :
 		m_ptr(nullptr)
 	{
 
 	};
 
-	VectorIterator(VectorIterator& other)
-		m_ptr(other.m_ptr)
-	{
+	VectorIterator(VectorIterator&) = default;
 
-	};
-
-
-
-	VectorIterator& operator=(VectorIterator& other)
-	{
-		m_ptr = other.m_ptr;
-		return *this;
-	};
+	VectorIterator& operator=(VectorIterator&) = default;
 
 	//Takes an instance and returns a copy
 	VectorIterator(const VectorIterator& other) :
@@ -88,14 +77,14 @@ public:
 	{
 		VectorIterator temp = *this;
 		++(*this);
-		return *temp;
+		return temp;
 	};
 
 	//What is going on here!!!
 	VectorIterator operator--(int)
 	{
 		VectorIterator temp = *this;
-		--m_ptr;
+		--(*this);
 		return temp;
 	};
 

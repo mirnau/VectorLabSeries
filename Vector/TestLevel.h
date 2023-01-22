@@ -2,7 +2,7 @@
 
 #define LEVEL 99
 #define G_BETYG
-//#define VG_BETYG
+#define VG_BETYG
 
 //Tanken är att man höjer Level successivt till 12
 //Sen kan man sätta level till 99
@@ -10,12 +10,12 @@
 //Observera att LEVEL testerna är mycket enkla
 //det är först G_BETYG som blir en ordentlig test.
 
-//Så här är nivåerna man kan sätta på LEVEL
+/* Så här är nivåerna man kan sätta på LEVEL
 #if false
 level 1
 Vector();
-size();
-capacity();
+size()
+capacity()
 Invariant();
 
 level 2
@@ -77,7 +77,8 @@ operator+=
 operator+
 operator-(it)
 operator-(int)
-*/
 #endif
 
-//Observera att reverse_iterator inte testas i Basic Test!
+Observera att reverse_iterator inte testas i Basic Test!
+
+*/

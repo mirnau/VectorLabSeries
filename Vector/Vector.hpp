@@ -9,6 +9,15 @@
 template <class T>
 class Vector
 {
+public:
+	using iterator = VectorIterator<Vector<T>, 1>;
+	using const_iterator = VectorIterator<Vector<const T>, 1>;
+	using reverse_iterator = VectorIterator<Vector<T>, -1>;
+	using const_reverse_iterator = VectorIterator<Vector<const T>, -1>;
+	using value_type = T;
+	using pointer = T*;
+	using reference = T&;
+
 private:
 	static const int _initCapacity = 4;
 	T* m_arrayPtr;
@@ -17,12 +26,6 @@ private:
 	size_t m_capacity;
 
 public:
-	using iterator = VectorIterator<Vector<T>, Vector<T>, 1>;
-	using const_iterator = VectorIterator<Vector<T>, const Vector<T>, 1>;
-	using reverse_iterator = VectorIterator<Vector<T>, Vector<T>, -1>;
-	using const_reverse_iterator = VectorIterator<Vector<T>, const Vector< T>, -1>;
-	using value_type = T;
-
 	////Constructors & Destrctor
 	Vector() noexcept
 	{
@@ -345,19 +348,29 @@ public:
 		return iterator(m_arrayPtr);
 	};
 
+	const_iterator begin()const noexcept
+	{
+		return const_iterator(m_arrayPtr);
+	};
+
 	iterator end() noexcept
 	{
 		return iterator(m_arrayPtr + m_size);
 	};
 
+	const_iterator end() const noexcept
+	{
+		return const_iterator(m_arrayPtr + m_size);
+	};
+
 	const_iterator cbegin() const noexcept
 	{
-		return const_iterator(begin());
+		return const_iterator(m_arrayPtr);
 	};
 
 	const_iterator cend() const noexcept
 	{
-		return const_iterator(end());
+		return const_iterator(m_arrayPtr + m_size);
 	};
 
 	//REVERSE ITERATOR Begin
@@ -367,18 +380,28 @@ public:
 		return reverse_iterator(m_arrayPtr + m_size);
 	};
 
+	const_reverse_iterator rbegin() const noexcept
+	{
+		return const_reverse_iterator(m_arrayPtr + m_size);
+	};
+
 	reverse_iterator rend() noexcept
 	{
 		return reverse_iterator(m_arrayPtr);
 	};
 
+	const_reverse_iterator rend() const noexcept
+	{
+		return const_reverse_iterator(m_arrayPtr);
+	};
+
 	const_reverse_iterator crbegin() const noexcept
 	{
-		return const_reverse_iterator(rbegin());
+		return const_reverse_iterator(m_arrayPtr + m_size);
 	};
 	
 	const_reverse_iterator crend() const noexcept
 	{
-		return const_reverse_iterator(rend());
+		return const_reverse_iterator(m_arrayPtr);
 	};
 };

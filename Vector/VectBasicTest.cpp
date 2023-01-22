@@ -54,11 +54,11 @@ void TestBasic() {
     {
         Vector<char> foo("foo"), bar("bar");
         assert(foo == foo && !(foo != foo));
-        //assert(bar < foo && !(bar > foo));
-        //assert(bar <= foo && !(bar >= foo));
-        //assert(bar <= bar && foo >= foo);
+        assert(bar < foo && !(bar > foo));
+        assert(bar <= foo && !(bar >= foo));
+        assert(bar <= bar && foo >= foo);
         Vector<char> fooa("fooa");
-        assert(foo < fooa && fooa > foo);
+        assert(foo<fooa&& fooa>foo);
     }
 #endif
 #if LEVEL>=4
@@ -153,7 +153,6 @@ void TestBasic() {
         {
             Vector<char>::reverse_iterator it = foo.rbegin(); it = foo.rend();
         }
-        //LÄRARENS UTMARKERING
         //{
         //    Vector<char>::const_iterator cit = foo.cbegin(); cit = foo.cend();
         //    cit = coo.begin(); cit = coo.end();
