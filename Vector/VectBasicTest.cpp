@@ -54,8 +54,8 @@ void TestBasic() {
     {
         Vector<char> foo("foo"), bar("bar");
         assert(foo == foo && !(foo != foo));
-        //assert(bar < foo && !(bar > foo));
-        //assert(bar <= foo && !(bar >= foo));
+        assert(bar < foo && !(bar > foo));
+        assert(bar <= foo && !(bar >= foo));
         assert(bar <= bar && foo >= foo);
         Vector<char> fooa("fooa");
         assert(foo<fooa&& fooa>foo);
@@ -122,7 +122,7 @@ void TestBasic() {
         Fox.resize(10);
         assert(Fox.capacity() >= 10);
         assert(Fox.size() == 10);
-        assert(Fox[9] == 0);
+        assert(Fox[9] == 0); //Nullcheck 
         Fox = "Fox";
         Bar = "Bar";
         swap(Fox, Bar);

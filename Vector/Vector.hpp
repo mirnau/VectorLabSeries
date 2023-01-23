@@ -2,7 +2,6 @@
 #include <iostream>
 #include <compare>
 #include <utility>
-
 #include "VectorIterator.hpp"
 
 
@@ -42,10 +41,9 @@ public:
 
 		m_capacity = m_size;
 
-		//Creates a new instance, hence no delete
 		m_arrayPtr = new T[m_capacity + 1];
 
-		for (size_t i = 0; i < m_size; i++)
+		for (size_t i = 0; i < m_size; ++i)
 		{
 			m_arrayPtr[i] = other[i];
 		}
@@ -101,7 +99,7 @@ public:
 			throw std::out_of_range("Index is out of Range");
 	};
 
-	T& at(size_t i) const
+	const T& at(size_t i) const
 	{
 		if (i < m_capacity)
 			return m_arrayPtr[i];
@@ -207,10 +205,16 @@ public:
 		invariant();
 	}
 
+	T* data() noexcept
+	{
+		return m_arrayPtr;
+	}
+
 	const T* data() const noexcept
 	{
 		return m_arrayPtr;
 	}
+
 
 	bool invariant() const
 	{
@@ -233,15 +237,50 @@ public:
 	//void shrink_to_fit();
 	//void resize(size_t n);
 
+	//friend int operator<=>(const Vector& lhs, const Vector& rhs)
+	//{
+	//	if (lhs.m_size > rhs.m_size)
+	//		return 1;
+	//	else if (lhs.m_size < rhs.m_size)
+	//		return -1;
+	//	else
+	//		return 0;
+	//};
+
 	friend int operator<=>(const Vector& lhs, const Vector& rhs)
 	{
-		if (lhs.size() > rhs.size())
-			return 1;
-		else if (lhs.size() < rhs.size())
-			return -1;
-		else
-			return 0;
+		T* first1 = lhs.m_arrayPtr;
+		T* last1 = lhs.m_arrayPtr + lhs.m_size;
+
+		T* first2 = rhs.m_arrayPtr;
+		T* last2 = rhs.m_arrayPtr + rhs.m_size;
+
+		for (; (first1 != last1) && (first2 != last2); ++first1, (void) ++first2)
+		{
+			if (*first1 < *first2)
+			{
+				return -1;
+			}
+			if (*first2 < *first1)
+			{
+				return 1;
+			}
+			else
+			{	//Different length
+				if (lhs.m_size > rhs.m_size)
+				{
+					return 1;
+				}
+				else if (lhs.m_size < rhs.m_size)
+				{
+					return -1;
+				}
+				//Same length
+				return 0;
+			}
+		}
 	};
+
 
 	Vector& operator=(const Vector& other)
 	{
@@ -254,9 +293,8 @@ public:
 		}
 
 		for (size_t i = 0; i < other.size(); i++)
-			*(m_arrayPtr + i) = *(other.m_arrayPtr + i);
+			m_arrayPtr[i] = other.m_arrayPtr[i];
 
-		m_size = other.m_size;
 
 		invariant();
 		return *this;
@@ -266,10 +304,16 @@ public:
 	{
 		if (*this == other)
 			return *this;
+
 		if (other.size() > m_capacity)
 		{
 			reserve(other.size());
 			m_size = m_capacity;
+		}
+		else
+		{
+			m_size = other.m_size;
+			shrink_to_fit();
 		}
 
 		for (size_t i = 0; i < other.size(); i++)
@@ -287,35 +331,50 @@ public:
 	};
 
 
-	friend bool operator==(const Vector& lhs, const Vector& other)
+	friend bool operator==(const Vector& lhs, const Vector& rhs)
 	{
-		int count = 0; //replace count 
-		Vector<T> greater;
-		Vector<T> smaller;
+		T* first1 = lhs.m_arrayPtr;
+		T* last1 = lhs.m_arrayPtr + lhs.m_size;
 
-		if (lhs.size() >= other.size()) {
-			greater = lhs;
-			smaller = other;
-		}
+		T* first2 = rhs.m_arrayPtr;
+		T* last2 = rhs.m_arrayPtr + rhs.m_size;
 
-		else {
-			greater = other;
-			smaller = lhs;
-		}
-
-
-		for (T* ptr = smaller.m_arrayPtr; ptr < smaller.m_arrayPtr + smaller.m_size; ++ptr)
+		for (; (first1 != last1) && (first2 != last2); ++first1, (void) ++first2)
 		{
-
-			if (*ptr != *(greater.m_arrayPtr + count))
+			if (*first1 < *first2)
 			{
 				return false;
 			}
-
-			++count;
+			if (*first2 < *first1)
+			{
+				return false;
+			}
+			else
+			{	//Different length
+				if (*first1 + 1 != 0 &&
+					*first2 + 1 != 0 &&
+					lhs.m_size > rhs.m_size)
+				{
+					return false;
+				}
+				else if (lhs.m_size < rhs.m_size)
+				{
+					return false;
+				}
+			}
 		}
 
 		return true;
+
+		//if (lhs.m_size == 0 &&
+		//	rhs.m_size == 0)
+		//{
+		//	return true;
+		//}
+		//else
+		//{
+		//	return false;
+		//}
 	};
 
 	friend std::ostream& operator<<(std::ostream& cout, const Vector& other)

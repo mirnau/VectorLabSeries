@@ -3,4 +3,6 @@
   VectIterTest.cpp
   VectorTest.cpp
   Generating Code...
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\Vector.hpp(282): warning C4715: 'operator<=>': not all control paths return a value
+C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\Vector.hpp(282): warning C4715: 'operator<=>': not all control paths return a value
   Vector.vcxproj -> C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\x64\Debug\Vector.exe
