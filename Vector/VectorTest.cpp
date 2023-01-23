@@ -259,15 +259,21 @@ void TestVector() {
     //testas överallt!
 
     {//Swap
-        //Vector<char> Bar("Bar");
-        //Vector<char> Foo("Foo");
-        //swap(Bar, Foo);
-        //assert(Foo == "Bar" && Bar == "Foo");
-        ////Test for efficient swap!
-        //auto fptr = Foo.data();
-        //auto bptr = Bar.data();
-        //swap(Foo, Bar);
-        //assert(fptr == Bar.data() && bptr == Foo.data());
+        Vector<char> Bar("Bar");
+        Vector<char> Foo("Foo");
+        swap(Bar, Foo);
+
+        std::cout << Foo << " " << Bar << " Swap 1" << std::endl;
+
+        assert(Foo == "Bar" && Bar == "Foo");
+        //Test for efficient swap!
+        auto fptr = Foo.data();
+        auto bptr = Bar.data();
+        swap(Foo, Bar);
+
+        std::cout << Foo << " " << Bar << " Swap2" << std::endl;
+
+        assert(fptr == Bar.data() && bptr == Foo.data());
     }
 
     TestRolOp();

@@ -4,7 +4,6 @@
 #include <utility>
 #include "VectorIterator.hpp"
 
-
 template <class T>
 class Vector
 {
@@ -35,9 +34,7 @@ public:
 
 	Vector(const char* other)
 	{
-		m_size = 0;
-		while (other[m_size] != '\0')
-			m_size++;
+		m_size = strlen(other);
 
 		m_capacity = m_size;
 
@@ -159,10 +156,10 @@ public:
 
 	friend void swap(Vector<T>& lhs, Vector<T>& rhs)
 	{
-		Vector<T> temp(std::move(lhs));
-		lhs = std::move(rhs);
-		rhs = std::move(temp);
-
+		std::swap(lhs.m_arrayPtr, rhs.m_arrayPtr);
+		/*Vector<T> temp = std::move(lhs.m_arrayPtr);
+		lhs = std::move(rhs.m_arrayPtr);
+		rhs = std::move(temp.m_arrayPtr);*/
 	};
 
 	void resize(size_t n)
@@ -205,8 +202,10 @@ public:
 		invariant();
 	}
 
+
 	T* data() noexcept
 	{
+
 		return m_arrayPtr;
 	}
 
@@ -214,7 +213,6 @@ public:
 	{
 		return m_arrayPtr;
 	}
-
 
 	bool invariant() const
 	{
@@ -254,6 +252,8 @@ public:
 
 		T* first2 = rhs.m_arrayPtr;
 		T* last2 = rhs.m_arrayPtr + rhs.m_size;
+		
+		//std::cout << std::strcmp(rhs.m_arrayPtr, lhs.m_arrayPtr) << std::end;
 
 		for (; (first1 != last1) && (first2 != last2); ++first1, (void) ++first2)
 		{
@@ -276,11 +276,10 @@ public:
 					return -1;
 				}
 				//Same length
-				return 0;
+				return strcmp(lhs.m_arrayPtr, rhs.m_arrayPtr);
 			}
 		}
 	};
-
 
 	Vector& operator=(const Vector& other)
 	{
