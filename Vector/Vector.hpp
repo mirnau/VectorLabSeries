@@ -112,6 +112,7 @@ public:
 		{
 			saftey = 1;
 			m_arrayPtr = new T[m_size + 1];
+			//m_capacity = m_size + 1;
 		}
 
 		if (m_size + 1 > m_capacity)
@@ -156,10 +157,9 @@ public:
 
 	friend void swap(Vector<T>& lhs, Vector<T>& rhs)
 	{
-		std::swap(lhs.m_arrayPtr, rhs.m_arrayPtr);
-		/*Vector<T> temp = std::move(lhs.m_arrayPtr);
-		lhs = std::move(rhs.m_arrayPtr);
-		rhs = std::move(temp.m_arrayPtr);*/
+		Vector<T> temp = std::move(lhs);
+		lhs = std::move(rhs);
+		rhs = std::move(temp);
 	};
 
 	void resize(size_t n)
@@ -202,10 +202,8 @@ public:
 		invariant();
 	}
 
-
 	T* data() noexcept
 	{
-
 		return m_arrayPtr;
 	}
 
@@ -294,33 +292,17 @@ public:
 		for (size_t i = 0; i < other.size(); i++)
 			m_arrayPtr[i] = other.m_arrayPtr[i];
 
-
 		invariant();
 		return *this;
 	};
 
 	Vector& operator=(Vector&& other) noexcept
 	{
-		if (*this == other)
-			return *this;
-
-		if (other.size() > m_capacity)
-		{
-			reserve(other.size());
-			m_size = m_capacity;
-		}
-		else
-		{
-			m_size = other.m_size;
-			shrink_to_fit();
-		}
-
-		for (size_t i = 0; i < other.size(); i++)
-		{
-			*(m_arrayPtr + i) = *(other.m_arrayPtr + i);
-		}
-
-		delete[] other.m_arrayPtr;
+		delete m_arrayPtr;
+		m_arrayPtr = other.m_arrayPtr;
+		m_capacity = other.m_capacity;
+		m_size = other.m_size;
+		
 		other.m_arrayPtr = nullptr;
 		other.m_size = 0;
 		other.m_capacity = 0;
@@ -431,31 +413,31 @@ public:
 
 	reverse_iterator rbegin() noexcept
 	{
-		return reverse_iterator(m_arrayPtr + m_size);
+		return reverse_iterator(m_arrayPtr + m_size -1);
 	};
 
 	const_reverse_iterator rbegin() const noexcept
 	{
-		return const_reverse_iterator(m_arrayPtr + m_size);
+		return const_reverse_iterator(m_arrayPtr + m_size -1);
 	};
 
 	reverse_iterator rend() noexcept
 	{
-		return reverse_iterator(m_arrayPtr);
+		return reverse_iterator(m_arrayPtr -1);
 	};
 
 	const_reverse_iterator rend() const noexcept
 	{
-		return const_reverse_iterator(m_arrayPtr);
+		return const_reverse_iterator(m_arrayPtr -1);
 	};
 
 	const_reverse_iterator crbegin() const noexcept
 	{
-		return const_reverse_iterator(m_arrayPtr + m_size);
+		return const_reverse_iterator(m_arrayPtr + m_size -1);
 	};
 
 	const_reverse_iterator crend() const noexcept
 	{
-		return const_reverse_iterator(m_arrayPtr);
+		return const_reverse_iterator(m_arrayPtr -1);
 	};
 };

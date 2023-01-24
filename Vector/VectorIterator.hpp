@@ -57,7 +57,7 @@ public:
 
 	reference operator[](size_t i) const
 	{
-		return m_ptr[i];
+		return m_ptr[i * dir];
 	};
 
 	VectorIterator& operator++()
@@ -96,17 +96,19 @@ public:
 
 	VectorIterator operator+(difference_type rhs) const
 	{
-		return VectorIterator(m_ptr + rhs);
+		return VectorIterator(m_ptr + rhs * dir);
 	};
 
 	VectorIterator operator-(difference_type rhs) const
 	{
-		return VectorIterator(m_ptr - rhs);
+		return VectorIterator(m_ptr - rhs * dir);
 	};
 
 	difference_type operator-(const VectorIterator& other) const
 	{
-		return m_ptr - other.m_ptr;
+		difference_type d = m_ptr - other.m_ptr;
+		d *= dir;
+		return d;
 	};
 
 	friend bool operator==(const VectorIterator& lhs, const VectorIterator& rhs)
@@ -117,9 +119,9 @@ public:
 	friend int operator<=>(const VectorIterator& lhs, const VectorIterator& rhs)
 	{
 		if (lhs.m_ptr > rhs.m_ptr)
-			return 1;
+			return 1 *dir;
 		else if (lhs.m_ptr < rhs.m_ptr)
-			return -1;
+			return -1 * dir;
 		else
 			return 0;
 	};
