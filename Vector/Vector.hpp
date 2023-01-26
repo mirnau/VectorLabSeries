@@ -3,6 +3,7 @@
 #include <compare>
 #include <utility>
 #include "VectorIterator.hpp"
+#define CHECK assert(invariant())
 
 template <class T>
 class Vector
@@ -55,7 +56,10 @@ public:
 
 		m_arrayPtr = new T[other.size()];
 
-		CopyArray(other);
+		for (size_t i = 0; i < other.size(); i++)
+		{
+			*(m_arrayPtr + i) = *(other.m_arrayPtr + i);
+		}
 	};
 
 	Vector(Vector&& other) noexcept :
@@ -122,15 +126,6 @@ public:
 
 		*(m_arrayPtr + m_size) = c;
 		++m_size;
-		invariant();
-	};
-
-	void CopyArray(const Vector& other)
-	{
-		for (size_t i = 0; i < other.size(); i++)
-		{
-			*(m_arrayPtr + i) = *(other.m_arrayPtr + i);
-		}
 		invariant();
 	};
 
@@ -214,24 +209,8 @@ public:
 
 	bool invariant() const
 	{
-		//if (!(_capacity >= _size))
-		//	return false;
-		//if (!arrayPtr)
-		//	return false;
-		//else
-		//	return true;
-
 		return
 			m_capacity >= m_size;
-
-	};
-
-#define CHECK assert((invariant()))
-
-
-	//void reserve(size_t n);
-	//void shrink_to_fit();
-	//void resize(size_t n);
 
 	//friend int operator<=>(const Vector& lhs, const Vector& rhs)
 	//{
@@ -250,8 +229,6 @@ public:
 
 		T* first2 = rhs.m_arrayPtr;
 		T* last2 = rhs.m_arrayPtr + rhs.m_size;
-		
-		//std::cout << std::strcmp(rhs.m_arrayPtr, lhs.m_arrayPtr) << std::end;
 
 		for (; (first1 != last1) && (first2 != last2); ++first1, (void) ++first2)
 		{
@@ -298,7 +275,8 @@ public:
 
 	Vector& operator=(Vector&& other) noexcept
 	{
-		delete m_arrayPtr;
+		delete[] m_arrayPtr; //Fråga: Varken delete eller delete[] ger minnläcka, vilken är rätt här?
+		
 		m_arrayPtr = other.m_arrayPtr;
 		m_capacity = other.m_capacity;
 		m_size = other.m_size;
@@ -311,9 +289,13 @@ public:
 		return *this;
 	};
 
-
 	friend bool operator==(const Vector& lhs, const Vector& rhs)
 	{
+		if (lhs.size() != rhs.size())
+		{
+			return false;
+		}
+
 		T* first1 = lhs.m_arrayPtr;
 		T* last1 = lhs.m_arrayPtr + lhs.m_size;
 
@@ -322,40 +304,13 @@ public:
 
 		for (; (first1 != last1) && (first2 != last2); ++first1, (void) ++first2)
 		{
-			if (*first1 < *first2)
+			if (*first1 != *first2)
 			{
 				return false;
-			}
-			if (*first2 < *first1)
-			{
-				return false;
-			}
-			else
-			{	//Different length
-				if (*first1 + 1 != 0 &&
-					*first2 + 1 != 0 &&
-					lhs.m_size > rhs.m_size)
-				{
-					return false;
-				}
-				else if (lhs.m_size < rhs.m_size)
-				{
-					return false;
-				}
 			}
 		}
 
 		return true;
-
-		//if (lhs.m_size == 0 &&
-		//	rhs.m_size == 0)
-		//{
-		//	return true;
-		//}
-		//else
-		//{
-		//	return false;
-		//}
 	};
 
 	friend std::ostream& operator<<(std::ostream& cout, const Vector& other)
