@@ -3,6 +3,7 @@
 #include <compare>
 #include <utility>
 #include "VectorIterator.hpp"
+#include <cassert>
 #define CHECK assert(invariant())
 
 template <class T>
@@ -30,14 +31,18 @@ public:
 
 		m_size = 0;
 		m_capacity = 0;
-		invariant();
+		CHECK;
 	};
 
 	Vector(const char* other)
 	{
 		m_size = strlen(other);
-
 		m_capacity = m_size;
+
+		if (m_size == 0)
+		{
+			++m_capacity;
+		}
 
 		m_arrayPtr = new T[m_capacity + 1];
 
@@ -46,7 +51,7 @@ public:
 			m_arrayPtr[i] = other[i];
 		}
 
-		invariant();
+		CHECK;
 	};
 
 	Vector(const Vector& other)
@@ -54,12 +59,21 @@ public:
 		this->m_size = other.size();
 		this->m_capacity = other.capacity();
 
-		m_arrayPtr = new T[other.size()];
-
-		for (size_t i = 0; i < other.size(); i++)
+		if (other.m_arrayPtr == nullptr)
 		{
-			*(m_arrayPtr + i) = *(other.m_arrayPtr + i);
+			m_arrayPtr = nullptr;
 		}
+		else
+		{
+			m_arrayPtr = new T[other.size()];
+
+			for (size_t i = 0; i < other.size(); i++)
+			{
+				m_arrayPtr[i] = *(other.m_arrayPtr + i);
+			}
+		}
+
+		CHECK;
 	};
 
 	Vector(Vector&& other) noexcept :
@@ -70,25 +84,23 @@ public:
 		other.m_arrayPtr = nullptr;
 		other.m_size = 0;
 		other.m_capacity = 0;
-		invariant();
+		CHECK;
 	};
 
 	~Vector() noexcept
 	{
-		invariant();
+		CHECK;
 		delete[] m_arrayPtr;
 	};
 
 	////Methods
 	size_t size() const noexcept
 	{
-		invariant();
 		return m_size;
 	};
 
 	size_t capacity() const noexcept
 	{
-		invariant();
 		return m_capacity;
 	};
 
@@ -110,23 +122,22 @@ public:
 
 	void push_back(const T& c)
 	{
-		int saftey = 0;
-
 		if (m_arrayPtr == nullptr)
 		{
-			saftey = 1;
-			m_arrayPtr = new T[m_size + 1];
-			//m_capacity = m_size + 1;
+			m_size = 0;
+			m_capacity = 1;
+			m_arrayPtr = new T[m_capacity];
 		}
 
-		if (m_size + 1 > m_capacity)
+		else if (m_size + 1 > m_capacity)
 		{
-			reserve(saftey + m_capacity * 2);
+			reserve(2 * (m_capacity == 0 ? 1 : m_capacity));
 		}
 
 		*(m_arrayPtr + m_size) = c;
 		++m_size;
-		invariant();
+
+		CHECK;
 	};
 
 	void reserve(size_t n)
@@ -137,7 +148,7 @@ public:
 
 			for (size_t i = 0; i < m_capacity; i++)
 			{
-				*(a + i) = *(m_arrayPtr + i);
+				*(a + i) = m_arrayPtr[i];
 			}
 
 			delete[] m_arrayPtr;
@@ -147,7 +158,7 @@ public:
 			a = nullptr;
 		}
 
-		invariant();
+		CHECK;
 	};
 
 	friend void swap(Vector<T>& lhs, Vector<T>& rhs)
@@ -172,7 +183,7 @@ public:
 
 				for (size_t i = m_size; i < n; i++)
 				{
-					*(m_arrayPtr + i) = T();
+					m_arrayPtr[i] = T();
 				}
 			}
 
@@ -182,11 +193,11 @@ public:
 
 	void shrink_to_fit()
 	{
-		T* temp = new T[m_size + 1]{};
+		T* temp = new T[m_size + 1];
 
 		for (size_t i = 0; i < m_size; ++i)
 		{
-			*(temp + i) = *(m_arrayPtr + i);
+			*(temp + i) = m_arrayPtr[i];
 		}
 
 		delete[] m_arrayPtr;
@@ -194,7 +205,7 @@ public:
 		temp = nullptr;
 
 		m_capacity = m_size;
-		invariant();
+		CHECK;
 	}
 
 	T* data() noexcept
@@ -209,18 +220,18 @@ public:
 
 	bool invariant() const
 	{
+		if (m_arrayPtr != nullptr)
+		{
+			if (m_capacity <= 0)
+			{
+				return false;
+			}
+		}
+
 		return
 			m_capacity >= m_size;
 
-	//friend int operator<=>(const Vector& lhs, const Vector& rhs)
-	//{
-	//	if (lhs.m_size > rhs.m_size)
-	//		return 1;
-	//	else if (lhs.m_size < rhs.m_size)
-	//		return -1;
-	//	else
-	//		return 0;
-	//};
+	}
 
 	friend int operator<=>(const Vector& lhs, const Vector& rhs)
 	{
@@ -251,9 +262,10 @@ public:
 					return -1;
 				}
 				//Same length
-				return strcmp(lhs.m_arrayPtr, rhs.m_arrayPtr);
 			}
 		}
+
+		return 0;
 	};
 
 	Vector& operator=(const Vector& other)
@@ -265,11 +277,15 @@ public:
 			m_size = other.size();
 			reserve(m_size);
 		}
+		else
+		{
+			m_size = other.size();
+		}
 
-		for (size_t i = 0; i < other.size(); i++)
+		for (size_t i = 0; i < m_size; i++)
 			m_arrayPtr[i] = other.m_arrayPtr[i];
 
-		invariant();
+		CHECK;
 		return *this;
 	};
 
@@ -285,7 +301,7 @@ public:
 		other.m_size = 0;
 		other.m_capacity = 0;
 
-		invariant();
+		CHECK;
 		return *this;
 	};
 
@@ -322,14 +338,13 @@ public:
 
 	const T& operator[](size_t i) const
 	{
-		invariant();
-		return *(m_arrayPtr + i);
+		return m_arrayPtr[i];
 	};
 
 	T& operator[](size_t i)
 	{
 		invariant();
-		return *(m_arrayPtr + i);
+		return m_arrayPtr[i];
 	};
 
 	//Iterators

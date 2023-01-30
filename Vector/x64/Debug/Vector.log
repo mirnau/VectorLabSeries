@@ -1,37 +1,6 @@
 ﻿  Main.cpp
   VectBasicTest.cpp
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\Vector.hpp(216,31): error C2676: binary '==': 'T' does not define this operator or a conversion to a type acceptable to the predefined operator
-          with
-          [
-              T=Cbasic
-          ]
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\Vector.hpp(211,1): message : while compiling class template member function 'bool Vector<Cbasic>::invariant(void) const'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\Vector.hpp(129,12): message : see reference to function template instantiation 'bool Vector<Cbasic>::invariant(void) const' being compiled
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectBasicTest.cpp(178,24): message : see reference to class template instantiation 'Vector<Cbasic>' being compiled
   VectIterTest.cpp
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\Vector.hpp(216,31): error C2676: binary '==': 'T' does not define this operator or a conversion to a type acceptable to the predefined operator
-          with
-          [
-              T=D
-          ]
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\Vector.hpp(211,1): message : while compiling class template member function 'bool Vector<D>::invariant(void) const'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\Vector.hpp(129,12): message : see reference to function template instantiation 'bool Vector<D>::invariant(void) const' being compiled
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectIterTest.cpp(301,15): message : see reference to class template instantiation 'Vector<D>' being compiled
   VectorTest.cpp
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\Vector.hpp(216,31): error C2676: binary '==': 'T' does not define this operator or a conversion to a type acceptable to the predefined operator
-          with
-          [
-              T=C
-          ]
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(26,6): message : could be 'bool operator ==(const Vector<T> &,const char *)'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\Vector.hpp(216,29): message : 'bool operator ==(const Vector<T> &,const char *)': could not deduce template argument for 'const Vector<T> &' from 'T'
-          with
-          [
-              T=C
-          ]
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(26,6): message : or 'bool operator ==(const Vector<T> &,const char *)' [synthesized expression 'y == x']
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\Vector.hpp(216,29): message : 'bool operator ==(const Vector<T> &,const char *)': could not deduce template argument for 'const Vector<T> &' from 'int'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\Vector.hpp(211,1): message : while compiling class template member function 'bool Vector<C>::invariant(void) const'
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\Vector.hpp(150,12): message : see reference to function template instantiation 'bool Vector<C>::invariant(void) const' being compiled
-C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\VectorTest.cpp(74,15): message : see reference to class template instantiation 'Vector<C>' being compiled
   Generating Code...
+  Vector.vcxproj -> C:\Users\Mikael\source\Repos\AdvCPP\VectorLabSeries\Vector\x64\Debug\Vector.exe
