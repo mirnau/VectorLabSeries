@@ -19,8 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Dalloc.hpp" />
     <ClInclude Include="Dhelper.h" />
-    <ClInclude Include="main.h" />
     <ClInclude Include="SandBox.hpp" />
     <ClInclude Include="TestLevel.h" />
     <ClInclude Include="VectIterTest.h" />
@@ -31,7 +31,6 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="VectBasicTest.cpp" />
     <ClCompile Include="VectIterTest.cpp" />
-    <ClCompile Include="Vector.cpp" />
     <ClCompile Include="VectorIterator.cpp" />
     <ClCompile Include="VectorTest.cpp" />
   </ItemGroup>

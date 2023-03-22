@@ -1,6 +1,5 @@
 #pragma once
 
-
 //void TestIterForward();
 //void TestIterPartR();
 //void TestIterForwardC();

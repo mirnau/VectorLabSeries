@@ -1,14 +1,17 @@
 #pragma once
+//Använd denna som allocator
 
-#define LEVEL 99
-#define G_BETYG
-#define VG_BETYG
+#include "Dalloc.hpp"
+#define DEL 2 //del 1 eller 2 av Vectorlabben
+#define LEVEL 1
+//#define G_BETYG
+//#define VG_BETYG
 
-//Tanken är att man höjer Level successivt till 12
+//Tanken är att man höjer Level successivt till sista nivån
 //Sen kan man sätta level till 99
 //    och definiera G_BETYG så kör den riktiga testen igång.
 //Observera att LEVEL testerna är mycket enkla
-//det är först G_BETYG som blir en ordentlig test.
+//det är först med #define G_BETYG som blir en ordentlig test.
 
 /* Så här är nivåerna man kan sätta på LEVEL
 #if false
@@ -79,6 +82,8 @@ operator-(it)
 operator-(int)
 #endif
 
-Observera att reverse_iterator inte testas i Basic Test!
+level 20
+emplace_back
+#endif
 
 */

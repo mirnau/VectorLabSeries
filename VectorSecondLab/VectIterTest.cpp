@@ -1,11 +1,3 @@
-#ifdef _DEBUG
-#ifndef DBG_NEW
-#define DBG_NEW new ( _NORMAL_BLOCK , __FILE__ , __LINE__ )
-#define new DBG_NEW
-#endif
-#endif  // _DEBUG
-#include <crtdbg.h>
-
 #include "TestLevel.h"
 
 #if (defined(LEVEL)  && (LEVEL>80) ||  !defined(LEVEL))   && (defined(VG_BETYG) || defined(G_BETYG))
@@ -25,6 +17,10 @@ using CIT = Vector<char>::const_iterator;
 using RIT = Vector<char>::reverse_iterator;
 using CRIT = Vector<char>::const_reverse_iterator;
 
+#if DEL == 2
+#include "Dhelper.h"
+#endif DEL
+
 template<class T>
 struct IsSameFun {
     template<class V>
@@ -41,33 +37,6 @@ struct IsSameS {
 
 template< class T, class U >
 constexpr bool IsSameCheck = IsSameS<T, U>::value;
-
-struct D {
-    static std::string usedConstr;
-
-    int Test() { return 1; }
-    const int Test() const { return 2; }
-
-    D() {
-        usedConstr += "DC";
-    }
-    D(const D& c) {
-        usedConstr += "CC";
-    }
-    D(D&& c) {
-        usedConstr += "MC";
-    }
-    D& operator=(const D& c) {
-        usedConstr += "CA";
-        return *this;
-    }
-    D& operator=(D&& c) {
-        usedConstr += "MA";
-        return *this;
-    }
-};
-
-std::string D::usedConstr{};
 
 #pragma endregion help jox
 
@@ -88,7 +57,7 @@ void TestIterPart_() {
     assert(*(it + 1) == 'a');
     assert(it[2] == 'r');
     assert(*(it += 1) == 'a' && *it == 'a');
-    
+
     r1 = "rabxof";
     it = r1.end();
     --it;
@@ -298,9 +267,9 @@ void TestAccess() {
         assert(*cit2 == 'r');
         IsSameCheck<const char&, decltype(*cit2)>;
     }
-    Vector<D> Dcont;
-    const Vector<D> DcontC;
-    Dcont.push_back(D());
+    Vector<Dhelper> Dcont;
+    const Vector<Dhelper> DcontC;
+    Dcont.push_back(Dhelper(17));
     {
         auto i = Dcont.begin()->Test();
         auto ci = DcontC.begin()->Test();

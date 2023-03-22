@@ -1,73 +1,135 @@
 #pragma once
+#include "TestLevel.h"
 #include <string>
+#include <limits.h>
+
+#if DEL == 1
+#define assert2(X) 
+#elif DEL == 2
+#define assert2(X) assert(X)
+#endif
 
 namespace {
-    //We assume that Dalloc set unused memory to 1
-    //Varning, denna typ funkar inte som classer brukar göra!
-    //Dhelper d; kommer att ge runtime error!
+    //DEL's value control the behavior (is there a default constructor or not)
+    //We assume that unconstructed memory has a content <=0.
+    // throws otherwise
+    // A Dhelper object has a char value and a status flag with values:
+    enum {
+        NON = 1, //Not initialized at all
+        DD, // Has been destroyed
+        MF, // Has been moved From
+        DC, // Default constructed (onlypossible if DEL == 1)
+        CV, // Constructed with value
+        CC, // Copy Constructed
+        MC, // Move Constructed
+        CA, // Copy assigned
+        MA, // Move assigned
+    };
+    // NON 0 //Not initialized at all
+    //#define DD 1 // Has been destroyed
+    //#define MF 2 // Has been moved From
+    //#define DC 3 // Default constructed (onlypossible if DEL == 1)
+    //#define CV 4 // Constructed with value
+    //#define CC 5 // Copy Constructed
+    //#define MC 6 // Move Constructed
+    //#define CA 7 // Copy assigned
+    //#define MA 8 // Move assigned
+
     struct Dhelper {
         static std::string usedConstr;
-        static bool check;
+        static bool checkDhelper;
         char flag;
+        char FLAG;
         char value;
         int Test() { return 1; }
         const int Test() const { return 2; }
-        void IsConstr(bool check) {
-            assert(!check || 1 < flag && flag < 7);
+        void IsConstr(bool checkDhelper) {
+            assert(!checkDhelper || 1 < flag && flag < 7);
         }
-        void IsNotConstr(bool check) 
+        void IsNotConstr(bool checkDhelper)
         {
-            assert(!check || !(1 < flag && flag < 7));
+            assert(!checkDhelper || 1 == flag);
+        }
+        bool IsConstr() const {
+#if DEL == 2
+            assert(FLAG >= MF);
+#endif
+            return true;
+        }
+        bool IsNotConstr() const {
+#if DEL == 2
+            assert(FLAG <= MF);
+#endif
+            return true;
+        }
+        bool IsMoved() const {
+#if DEL == 2
+            assert(FLAG == MF);
+#endif
+            return true;
         }
 
         operator char() const { return value; }
 
         ~Dhelper() {
-            IsConstr(true);
-            flag = 1;
+            IsConstr();
+            FLAG = DD;
         }
-        Dhelper(bool check = true) {
+        Dhelper() {
+            assert(FLAG <= DD); // Constructed twice!
+            FLAG = CV;
             value = 0;
             usedConstr += "DC";
-            IsNotConstr(check);
+            IsNotConstr(checkDhelper);
             flag = 2;
         }
-        Dhelper(int v, bool check = true) {
+        Dhelper(bool) {
+            assert(false);
+        }
+        Dhelper(int v) {
+            IsNotConstr();
+            FLAG = CV;
             value = v;
             usedConstr += "CC";
-            IsNotConstr(check);
+            IsNotConstr(checkDhelper);
             flag = 3;
         }
-        Dhelper(const Dhelper& other, bool check = true) {
+        Dhelper(const Dhelper& other) {
+            assert(FLAG <= DD); // Constructed twice!
+            FLAG = CC;
             value = other.value;
             usedConstr += "CC";
-            IsNotConstr(check);
+            IsNotConstr(checkDhelper);
             flag = 4;
         }
-        Dhelper(Dhelper&& other, bool check = true) noexcept {
+        Dhelper(Dhelper&& other) noexcept {
+            assert(IsNotConstr());
+            assert(other.IsConstr());
+            FLAG = MC;
+            other.FLAG = MF;
             value = other.value;
-            usedConstr += "MC";
-            IsNotConstr(check);
-            flag = 5; 
         }
-        //Not used
-        Dhelper& Assign(const Dhelper& other, bool check = true) {
-            value = other.value;
-            usedConstr += "CA";
-            IsConstr(check);
-            flag = 6;
-            return *this;
-        }
-        //Not used
-        Dhelper& Assign(char v, bool check = true) {
-            value = v;
-            usedConstr += "CA";
-            IsConstr(check);
-            flag = 6;
-            return *this;
-        }
+        ////Not used
+        //Dhelper& Assign(const Dhelper& other, bool checkDhelper = true) {
+        //	value = other.value;
+        //	usedConstr += "CA";
+        //	IsConstr(checkDhelper);
+        //	flag = 6;
+        //	return *this;
+        //}
+        ////Not used
+        //Dhelper& Assign(char v, bool checkDhelper = true) {
+        //	value = v;
+        //	usedConstr += "CA";
+        //	IsConstr(checkDhelper);
+        //	flag = 6;
+        //	return *this;
+        //}
 
         Dhelper& operator=(char v) {
+            assert(FLAG > DD); // not constructed!
+            FLAG = CA;
+
             value = v;
             usedConstr += "CA";
             IsConstr(true);
@@ -76,36 +138,43 @@ namespace {
         }
         //Used
         Dhelper& operator=(const Dhelper& other) {
+            assert(FLAG > DD); // not constructed!
+            FLAG = CA;
             value = other.value;
             usedConstr += "CA";
             IsConstr(true);
             flag = 6;
             return *this;
         }
-        //Not used
-        Dhelper& operator=(Dhelper&& other) noexcept {
-            value = other.value;
-            usedConstr += "MA";
-            IsConstr(true);
-            flag = 7;
-            return *this;
-        }
-        //Not used
-        friend bool operator==(const Dhelper& lhs, const Dhelper& rhs) {
-            return lhs.value == rhs.value;
-        }
+        ////Not used
+        //Dhelper& operator=(Dhelper&& other) noexcept {
+        //    assert(FLAG > DD); // not constructed!
+        //    FLAG = MA;
+        //    value = other.value;
+        //    usedConstr += "MA";
+        //    IsConstr(true);
+        //    flag = 7;
+        //    return *this;
+        //}
+        ////Not used
+        //friend bool operator==(const Dhelper& lhs, const Dhelper& rhs) {
+        //    assert(lhs.FLAG > DD && rhs.FLAG > DD); // Not constructed
+        //    return lhs.value == rhs.value;
+        //}
         friend bool operator==(const Dhelper& lhs, char rhs) {
+            assert(lhs.FLAG > DD); // Not constructed!
             return lhs.value == rhs;
         }
         friend bool operator!=(const Dhelper& lhs, const Dhelper& rhs) {
-            auto x= lhs.value != rhs.value;
+            assert(lhs.FLAG > DD && rhs.FLAG > DD); // Not constructed!
+            auto x = lhs.value != rhs.value;
             return x;
         }
 
     };
 
     std::string Dhelper::usedConstr{};
-    bool Dhelper::check{};
+    bool Dhelper::checkDhelper{};
 
 }
 

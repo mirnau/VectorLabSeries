@@ -1,16 +1,12 @@
-#ifdef _DEBUG
-#ifndef DBG_NEW
-#define DBG_NEW new ( _NORMAL_BLOCK , __FILE__ , __LINE__ )
-#define new DBG_NEW
-#endif
-#endif  // _DEBUG
-#include <crtdbg.h>
-
 #include "TestLevel.h"
 
 #if (defined(LEVEL)  && (LEVEL>80) ||  !defined(LEVEL))   && (defined(VG_BETYG) || defined(G_BETYG))
 
+#define CHAR char
+
 #include "Vector.hpp"
+
+#include "Dhelper.h"
 
 //Generates all functions declared
 //Uncomment this to check that all functions compiles.
@@ -22,134 +18,205 @@ using std::endl;
 #include <cassert>
 #include <type_traits>
 
-template<class X>
-bool operator==(const Vector<X>& lhs, const char* rhs) {
-    return lhs == Vector<X>(rhs);
-}
+void TestRolOp();
+void TestCapacity();
+
+//template<class X>
+//bool operator==(const Vector<X>& lhs, const CHAR* rhs) {
+//    return lhs == Vector<X>(rhs);
+//}
 
 template <class X>
 struct IsConstOrConstRef {
-    static const bool value = std::is_const<std::remove_reference<X>::type>::value;
+    static const bool value = std::is_const_v<std::remove_reference_t<X>>;
 };
 
 template <class X>
 bool IsConstOrConstRefFun(X& x) {
-    return std::is_const<typename std::remove_reference<X>::type>::value;
+    return std::is_const_v<std::remove_reference_t<X>>;
 };
 
 template<class X>
 void CheckVec(const Vector<X>& v) {
-    assert(v.invariant());
+    assert(v.Invariant());
     assert(v.size() <= v.capacity());
     for (size_t i = 0; i < v.capacity(); ++i)
-        auto x = v[i];
+        auto x = v[i];   // eller? X x(v[i]);
 }
-
-struct C {
-    static std::string usedConstr;
-    void Test() {}
-    C() {
-        usedConstr += "DC";
-    }
-    C(const C& c) {
-        usedConstr += "CC";
-    }
-    C(C&& c) {
-        usedConstr += "MC";
-    }
-    C& operator=(const C& c) {
-        usedConstr += "CA";
-        return *this;
-    }
-    C& operator=(C&& c) {
-        usedConstr += "MA";
-        return *this;
-    }
-};
-
-std::string C::usedConstr{};
+template<>
+void CheckVec<Dhelper>(const Vector<Dhelper>& v) {
+    assert(v.Invariant());
+    assert(v.size() <= v.capacity());
+    size_t i = 0;
+    for (; i < v.size(); ++i)
+        assert(v[i].IsConstr());
+    for (; i < v.capacity(); ++i)
+        assert(v[i].IsNotConstr());
+}
 
 //Test av push_back&&
 void TestPushBack() {
-    Vector<C> a;
-    C::usedConstr = "";
-    C c;
-    assert(C::usedConstr == "DC");
+    Vector<Dhelper> a;
+    Dhelper c;
     a.reserve(4);
-    C::usedConstr = "";
+    CheckVec(a);
     a.push_back(c);
-    assert(C::usedConstr == "CA");
-    //C::usedConstr = "";
-    //a.push_back(std::move(c));
-    //assert(C::usedConstr == "MC");
+    CheckVec(a);
+#ifdef VG_BETYG
+    c.IsConstr();
+    a.push_back(std::move(c));
+    c.IsMoved();
+#endif
 }
 
-void TestRolOp();
-void TestCapacity();
-
-void TestVector() {
-    {//Vector<char>(char *)
-        Vector<char> Foo("Foo");
-        const Vector<char> FooC("Foo");
-        Vector<char> Bar("Bar");
-        const Vector<char> BarC("Bar");
-        CheckVec(Foo); CheckVec(FooC);
-        CheckVec(Bar); CheckVec(BarC);
+template<class T>
+void TestAss(Vector<T>& (Vector<T>::* Ass)(const Vector<T>&), bool Efficient) {
+    {
+        Vector<Dhelper> Bar("Bar");
+        Vector<Dhelper> Fox("Fo");
+        Vector<Dhelper> Foo("Fooo");
+        (Fox.*Ass)(Bar);
+        (Foo.*Ass)(Bar);
+        assert(Foo == Fox && Fox == Bar && Bar == "Bar");
+        assert(Fox.data() != Bar.data());
+        Vector<Dhelper> Tom;
+        (Tom.*Ass)(Fox); //Assignment to empty
+        assert(Tom == Fox);
     }
-    {//check empty vectors;
-        Vector<char> v1;
-        assert(v1.capacity() == 0);
-        assert(v1.data() == nullptr);
-        Vector<char> v2(v1);
-        assert(v2 == "");
+    //Vector& as return value
+    {
+        Vector<Dhelper> Bar("Bar");
+        Vector<Dhelper> Fox("Fox");
+        Vector<Dhelper> Foo("Foo");
+        ((Foo.*Ass)(Fox).*Ass)(Bar);
+        assert(Fox == "Fox" && Foo == Bar && Bar == "Bar");
     }
-    {//Move constructor
-        Vector<char> a("foo");
-        Vector<char> b(std::move(a));
-        assert(b == "foo" && a.data() == nullptr);
+    //check different size and cpacity
+    {
+        Vector<Dhelper> Bar("Barf");
+        Vector<Dhelper> Fox; Fox.reserve(3);
+        auto buffert = Fox.data();
+        (Fox.*Ass)(Bar);
+        assert(Fox == Bar);
+        assert(buffert != Fox.data());
     }
-    {//Vector<char>(Copy constructor)
-        Vector<char> v1("foo"); assert(v1 == "foo");
-        Vector<char> v2(v1); assert(v2 == "foo");
-        Vector<char> v3("bar");  assert(v3 == "bar");
+    {
+        Vector<Dhelper> Bar("Barf");
+        Vector<Dhelper> Fox; Fox.reserve(4);
+        auto buffert = Fox.data();
+        (Fox.*Ass)(Bar);
+        assert(Fox == Bar);
+        if (Efficient)
+            assert(buffert == Fox.data());
+    }
+    {
+        Vector<Dhelper> Bar("Barf");
+        Vector<Dhelper> Fox; Fox.reserve(5);
+        auto buffert = Fox.data();
+        (Fox.*Ass)(Bar);
+        assert(Fox == Bar);
+        if (Efficient)
+            assert(buffert == Fox.data());
+    }
+    //use size and not capacity when allocating new space
+    {
+        Vector<Dhelper> Bar("BarBar");
+        Vector<Dhelper> Fox("Fox");
+        Fox.shrink_to_fit();
+        Bar.reserve(1000000LL);
+        (Fox.*Ass)(Bar);
+        assert(Fox.capacity() < 500);
+    }
+}
 
-        //-	~Vector<char>() Kom ihåg destruktorn!
-        delete new Vector<char>("hej");
+#ifdef VG_BETYG
+void TestVGAssignment() {
+    TestAss(&Vector<Dhelper>::AssSimple, false);
+    TestAss(&Vector<Dhelper>::AssStrong, false);
+    TestAss(&Vector<Dhelper>::AssFast, true);
+}
+#endif
 
+void TestAssignment() {
+    TestAss(&Vector<Dhelper>::Ass, false);
+
+    //Kedje tilldelning
+    {
+        Vector<Dhelper> Bar("Bar");
+        Vector<Dhelper> Fox("Fox");
+        Vector<Dhelper> Foo("Foo");
+        Foo = Fox = Bar;
+        assert(Foo == Fox && Fox == Bar && Bar == "Bar");
+    }
+    //Vector& as return value
+    {
+        Vector<Dhelper> Bar("Bar");
+        Vector<Dhelper> Fox("Fox");
+        Vector<Dhelper> Foo("Foo");
+        (Foo = Fox) = Bar;
+        assert(Fox == "Fox" && Foo == Bar && Bar == "Bar");
+    }
+    {
         //	-	operator =(Sträng sträng)
+        Vector<Dhelper> v2, v3;
         v2 = "hej";
+        v3 = "faxen";
         assert((v2 = v3) == v3);
+        v2 = v3;
+        assert(v2 == v3);
         assert((v2 = v2) == v3);	//self assignment
-
         //Ej samma buffert
         v2 = "hej";
         v3 = v2;
-        v2[0] = 'x';
-        assert(v3[0] == 'h');
+        v2[0] = 'x'; assert(v3[0] == 'h');
         v3[1] = 'y'; assert(v2[1] == 'e');
     }
     {//Kedjat assignment
-        Vector<char> v1("foo"), v2("bar"), v3("hej");
+        Vector<Dhelper> v1("foo"), v2("bar"), v3("hej");
         v3 = v2 = v1;
         assert(v3 == "foo");
         assert(v3 == v2);
         assert(v1 == v2);
     }
+}
 
-#ifdef VG_BETYG
-    {//No extra realloc
-        Vector<char> v1("foo"), v2("bar"), v3("hej");
-        auto xxx = v1.data();
-        v1 = v2;
-        assert(xxx == v1.data());
+void TestVector() {
+    {//Vector<Dhelper>(char *)
+        Vector<Dhelper> Foo("Foo");
+        const Vector<Dhelper> FooC("Foo");
+        Vector<Dhelper> Bar("Bar");
+        const Vector<Dhelper> BarC("Bar");
+        CheckVec(Foo); CheckVec(FooC);
+        CheckVec(Bar); CheckVec(BarC);
     }
-#endif
+    {//check empty vectors;
+        Vector<Dhelper> v1;
+        assert(v1.capacity() == 0);
+        assert(v1.data() == nullptr);
+        Vector<Dhelper> v2(v1);
+        assert(v2 == "");
+    }
+    {//Move constructor
+        Vector<Dhelper> a("foo");
+        Vector<Dhelper> b(std::move(a));
+        assert(b == "foo" && a.data() == nullptr);
+    }
+    {//Vector<Dhelper>(Copy constructor)
+        Vector<Dhelper> v1("foo"); assert(v1 == "foo");
+        Vector<Dhelper> v2(v1); assert(v2 == "foo");
+        Vector<Dhelper> v3("bar");  assert(v3 == "bar");
+
+        //-	~Vector<Dhelper>() Kom ihåg destruktorn!
+        delete new Vector<Dhelper>("hej");
+    }
+
+
 
     {// Move assignment
-        Vector<char> Foo("Foo");
-        const Vector<char> FooC("Foo");
-        Vector<char> Bar("Bar");
-        const Vector<char> BarC("Bar");
+        Vector<Dhelper> Foo("Foo");
+        const Vector<Dhelper> FooC("Foo");
+        Vector<Dhelper> Bar("Bar");
+        const Vector<Dhelper> BarC("Bar");
         CheckVec(Foo);
         CheckVec(Bar);
         Foo = std::move(Bar);
@@ -157,18 +224,18 @@ void TestVector() {
         CheckVec(Bar);
         assert(Foo == "Bar");
         assert(Bar == "" || Bar == "Foo");
-        assert(Bar == "");  //Vanliga resultatet men Foo är också okej
+        assert(Bar == "" || Bar == "Foo");  // //Tillåt swap lösning
         //assuming that we now have a nullptr in Bar
-        //we test that we can do a push_back;
+//we test that we can do a push_back;
         Bar.push_back('x');
         assert(Bar.capacity() > 0);
     }
 
     {//-	operator[](size_t i) som indexerar utan range check.
-        Vector<char> vecFoo("Foo");
-        const Vector<char> vecCFoo("Foo");
-        Vector<char> vecBar("Bar");
-        const Vector<char> vecBarC("Bar");
+        Vector<Dhelper> vecFoo("Foo");
+        const Vector<Dhelper> vecCFoo("Foo");
+        Vector<Dhelper> vecBar("Bar");
+        const Vector<Dhelper> vecBarC("Bar");
 
         vecBar = "bar";
         vecBar[-1]; vecBar[1000];	//No error
@@ -181,8 +248,8 @@ void TestVector() {
         assert(vecBarC[1] == 'a');
     }
     {//-	at(size_t i) som indexerar med range check
-        Vector<char> vecBar("Bar");
-        const Vector<char> vecBarC("Bar");
+        Vector<Dhelper> vecBar("Bar");
+        const Vector<Dhelper> vecBarC("Bar");
 
         try {
             vecBar.at(-1);
@@ -217,18 +284,18 @@ void TestVector() {
 
     // data
     {
-        Vector<char> vecBar("Bar");
-        const Vector<char> vecBarC("Bar");
+        Vector<Dhelper> vecBar("Bar");
+        const Vector<Dhelper> vecBarC("Bar");
 
         assert(vecBar.data() == &vecBar[0]);
         assert(!IsConstOrConstRefFun(*vecBar.data()));
         assert(IsConstOrConstRefFun(*vecBarC.data()));
     }
 
-    //-	push_back(char c) lägger till ett tecken sist.
+    //-	push_back(Dhelper c) lägger till ett tecken sist.
     {
-        Vector<char> vecBar("Bar");
-        const Vector<char> vecBarC("Bar");
+        Vector<Dhelper> vecBar("Bar");
+        const Vector<Dhelper> vecBarC("Bar");
 
         vecBar.push_back('a');
         assert(vecBar == "Bara");
@@ -237,20 +304,21 @@ void TestVector() {
 
     // resize
     {
-        Vector<char> vecBar("Bar");
-        const Vector<char> vecBarC("Bar");
+        Vector<Dhelper> vecBar("Bar");
+        const Vector<Dhelper> vecBarC("Bar");
         //size up
         vecBar.shrink_to_fit();
         auto buf = vecBar.data();
         vecBar.resize(6);
-        assert(vecBar[2] == 'r' && vecBar[3] == 0 && vecBar[4] == 0 && vecBar[5] == 0);
+        assert(vecBar[2] == 'r' && vecBar[3] == (CHAR)0 && vecBar[4] == (CHAR)0 && vecBar[5] == (CHAR)0);
         assert(buf != vecBar.data() && vecBar.capacity() >= 6 && vecBar.size() == 6);
         buf = vecBar.data();
         vecBar.resize(5);
         assert(buf == vecBar.data() && vecBar.capacity() >= 6 && vecBar.size() == 5);
+        assert(vecBar[5].FLAG == DD);  //Is last item deconstructed?
     }
     {//minitest push_back &&
-        Vector<char> vecBar("Bar");
+        Vector<Dhelper> vecBar("Bar");
         vecBar.push_back('a');
         assert(vecBar == "Bara");
     }
@@ -259,20 +327,14 @@ void TestVector() {
     //testas överallt!
 
     {//Swap
-        Vector<char> Bar("Bar");
-        Vector<char> Foo("Foo");
+        Vector<Dhelper> Bar("Bar");
+        Vector<Dhelper> Foo("Foo");
         swap(Bar, Foo);
-
-        std::cout << Foo << " " << Bar << " Swap 1" << std::endl;
-
         assert(Foo == "Bar" && Bar == "Foo");
         //Test for efficient swap!
         auto fptr = Foo.data();
         auto bptr = Bar.data();
         swap(Foo, Bar);
-
-        std::cout << Foo << " " << Bar << " Swap2" << std::endl;
-
         assert(fptr == Bar.data() && bptr == Foo.data());
     }
 
@@ -280,12 +342,13 @@ void TestVector() {
     TestCapacity();
     TestPushBack();
 
-    cout << "\nTestVector klar\n";
-
+#ifdef VG_BETYG
+    TestVGAssignment();
+#endif
 }
 
 void TestPushBackReallocation() {
-    Vector<char> vec("hej");
+    Vector<Dhelper> vec("hej");
     assert(vec.size() <= vec.capacity());
     assert(vec.size() == 3);
     assert(vec == "hej");
@@ -299,16 +362,17 @@ void TestPushBackReallocation() {
     auto siz = vec.size();
     size_t i;
     for (i = siz + 1; i <= cap; ++i) {
-        vec.push_back(char(i) + 'a');
+        vec.push_back((int)i + 'a');
         assert(internalBuf == &vec[0]);
         assert(cap == vec.capacity());
         assert(i == vec.size());
     }
-    vec.push_back(char(i));
+    vec.push_back((int)i);
     assert(internalBuf != &vec[0]);
     assert(cap < vec.capacity());
     assert(i == vec.size());
 }
+
 
 template<class C>
 void TestRel(const C& lhs, const C& rhs,
@@ -321,10 +385,10 @@ void TestRel(const C& lhs, const C& rhs,
 #define RelTest(a, b, c, d)  a c b && !(a d b)
 
 void TestRolOp() {
-    Vector<char> vecAbcdef("Abcdef");
-    Vector<char> vecBbcdef("Bbcdef");
-    Vector<char> vecAbcdeF("AbcdeF");
-    Vector<char> vecAbcdefg("Abcdefg");
+    Vector<Dhelper> vecAbcdef("Abcdef");
+    Vector<Dhelper> vecBbcdef("Bbcdef");
+    Vector<Dhelper> vecAbcdeF("AbcdeF");
+    Vector<Dhelper> vecAbcdefg("Abcdefg");
 
     { bool f = RelTest(vecAbcdef, vecAbcdef, == , != ); assert(f); }
     { bool f = RelTest(vecAbcdef, vecAbcdeF, != , == ); assert(f); }
@@ -342,9 +406,9 @@ void TestRolOp() {
     { bool f = RelTest(vecAbcdef, vecBbcdef, <= , >= ); assert(f); }
     { bool f = RelTest(vecAbcdef, vecAbcdefg, <= , >= ); assert(f); }
 
-    Vector<char> vecA("A");
-    Vector<char> vecAxxx("Axxx");
-    Vector<char> vecB("B");
+    Vector<Dhelper> vecA("A");
+    Vector<Dhelper> vecAxxx("Axxx");
+    Vector<Dhelper> vecB("B");
 
     { bool f = RelTest(vecA, vecAxxx, < , >= ); assert(f); }
     { bool f = RelTest(vecAxxx, vecA, > , <= ); assert(f); }
@@ -354,7 +418,7 @@ void TestRolOp() {
 }
 
 void TestCapacity() {
-    Vector<char> vecBar("Bar");
+    Vector<Dhelper> vecBar("Bar");
 
     //-	size(), capacity() and reloccation test;
     TestPushBackReallocation();
@@ -398,21 +462,26 @@ void TestCapacity() {
     assert(vecBar.capacity() == vecBar.size());
     assert(vecBar == "hej");
 
+    cout << "\nVectorTest för "
+#ifdef VG_BETYG
+        "Väl "
+#endif
+        "Godkänt klar\n";
 }
 
 //Test of typedefs!
 using std::is_same;
-//static_assert(is_same<int, Vector<int>::value_type>::value, "typdef missing");
-//static_assert(is_same<size_t, Vector<int>::size_type>::value, "typdef missing");
-//static_assert(is_same<ptrdiff_t, Vector<int>::difference_type>::value, "typdef missing");
-//static_assert(is_same<int&, Vector<int>::reference>::value, "typdef missing");
-//static_assert(is_same<const int&, Vector<int>::const_reference>::value, "typdef missing");
-//static_assert(is_same<int*, Vector<int>::pointer>::value, "typdef missing");
-//static_assert(is_same<const int*, Vector<int>::const_pointer>::value, "typdef missing");
-//static_assert(is_same<Vector<int>::iterator, Vector<int>::iterator>::value, "typdef missing");
-//static_assert(is_same<Vector<int>::const_iterator, Vector<int>::const_iterator>::value, "typdef missing");
-//static_assert(is_same<Vector<int>::reverse_iterator, Vector<int>::reverse_iterator>::value, "typdef missing");
-//static_assert(is_same<Vector<int>::const_reverse_iterator, Vector<int>::const_reverse_iterator>::value, "typdef missing");
+static_assert(is_same<int, Vector<int>::value_type>::value, "typdef missing");
+static_assert(is_same<size_t, Vector<int>::size_type>::value, "typdef missing");
+static_assert(is_same<ptrdiff_t, Vector<int>::difference_type>::value, "typdef missing");
+static_assert(is_same<int&, Vector<int>::reference>::value, "typdef missing");
+static_assert(is_same<const int&, Vector<int>::const_reference>::value, "typdef missing");
+static_assert(is_same<int*, Vector<int>::pointer>::value, "typdef missing");
+static_assert(is_same<const int*, Vector<int>::const_pointer>::value, "typdef missing");
+static_assert(is_same<Vector<int>::iterator, Vector<int>::iterator>::value, "typdef missing");
+static_assert(is_same<Vector<int>::const_iterator, Vector<int>::const_iterator>::value, "typdef missing");
+static_assert(is_same<Vector<int>::reverse_iterator, Vector<int>::reverse_iterator>::value, "typdef missing");
+static_assert(is_same<Vector<int>::const_reverse_iterator, Vector<int>::const_reverse_iterator>::value, "typdef missing");
 
 #else
 void TestVector() {}
