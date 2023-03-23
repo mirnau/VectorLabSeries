@@ -38,14 +38,14 @@ bool IsConstOrConstRefFun(X& x) {
 
 template<class X>
 void CheckVec(const Vector<X>& v) {
-    assert(v.Invariant());
+    assert(v.invariant());
     assert(v.size() <= v.capacity());
     for (size_t i = 0; i < v.capacity(); ++i)
         auto x = v[i];   // eller? X x(v[i]);
 }
 template<>
 void CheckVec<Dhelper>(const Vector<Dhelper>& v) {
-    assert(v.Invariant());
+    assert(v.invariant());
     assert(v.size() <= v.capacity());
     size_t i = 0;
     for (; i < v.size(); ++i)
@@ -209,8 +209,6 @@ void TestVector() {
         //-	~Vector<Dhelper>() Kom ihåg destruktorn!
         delete new Vector<Dhelper>("hej");
     }
-
-
 
     {// Move assignment
         Vector<Dhelper> Foo("Foo");

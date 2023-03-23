@@ -170,11 +170,9 @@ namespace {
             auto x = lhs.value != rhs.value;
             return x;
         }
-
     };
 
     std::string Dhelper::usedConstr{};
     bool Dhelper::checkDhelper{};
-
 }
 

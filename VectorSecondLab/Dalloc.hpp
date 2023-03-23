@@ -1,7 +1,7 @@
 #pragma once
 
 //Stop std::vector from checking to much
-#define _ITERATOR_DEBUG_LEVEL 2
+//#define _ITERATOR_DEBUG_LEVEL 2
 
 #include <string>
 #include<cassert>
@@ -11,7 +11,7 @@
 
 template<class T>
 bool ErrMegToUser(T msg) {
-    static bool executed=false;
+    static bool executed = false;
     if (!executed) {
         executed = true;
         std::cout << msg << '\n';
@@ -120,7 +120,7 @@ public:
 #pragma region Behhövs för std::vecotr när jag kör med den!
 
 
-    T* allocate(size_t n, const char* file, int line) {
+    T * allocate(size_t n, const char* file, int line) {
         if (n == 0) {
             ErrMegToUser("att allokera 0 bytes kan vara slöseri med minne!\n");
             return nullptr;
@@ -143,7 +143,7 @@ public:
         }
         if (n != poolPtr->n) {
             std::cout << std::string("deallocate N does not match allocate N \n")
-                + poolPtr->AllocIn() + " deallocated " +MsgAt(file, line) + '\n';
+                + poolPtr->AllocIn() + " deallocated " + MsgAt(file, line) + '\n';
             __debugbreak();
         }
         auto aFile = poolPtr->allocFile;
@@ -191,7 +191,7 @@ bool CheckVector<Dhelper>(PoolObj<Dhelper>* poolPtr) {
     i = DD;
     i = NON;
     i = 0;
-    for (; i < n; ++i,++ptr) {
+    for (; i < n; ++i, ++ptr) {
         if (ptr->FLAG != DD) break;
     }
     for (; i < n; ++i, ++ptr) {
@@ -201,7 +201,7 @@ bool CheckVector<Dhelper>(PoolObj<Dhelper>* poolPtr) {
         return ErrMegToUser(std::string("parts of the memory ") + poolPtr->AllocIn()
             + "\nand deallocated in " + MsgAt(poolPtr->allocFile, poolPtr->deallocLine)
             + "\nwas not destroyed correct!\n");
-            }
+    }
     return true;
 }
 

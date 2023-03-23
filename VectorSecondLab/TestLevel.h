@@ -3,8 +3,8 @@
 
 #include "Dalloc.hpp"
 #define DEL 2 //del 1 eller 2 av Vectorlabben
-#define LEVEL 1
-//#define G_BETYG
+#define LEVEL 99
+#define G_BETYG
 //#define VG_BETYG
 
 //Tanken är att man höjer Level successivt till sista nivån

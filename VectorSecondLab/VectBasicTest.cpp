@@ -39,11 +39,13 @@ void TestBasic() {
 #if LEVEL>=2
 	{
 		Vector<char> fox("fox");
+		
 		assert(fox.size() == 3);
 		cout << fox;
 		assert(fox == fox);
 		Vector<char> bar("bar");
 		assert(!(fox == bar));
+		
 	}
 #endif
 #if LEVEL>=3
@@ -54,14 +56,14 @@ void TestBasic() {
 		assert(bar <= fox && !(bar >= fox));
 		assert(bar <= bar && fox >= fox);
 		Vector<char> foxa("foxa");
-		assert(fox<foxa&& foxa>fox);
+		assert(fox<foxa && foxa>fox);
 	}
 #endif
 #if LEVEL>=4
 	{
 		Vector<char> fox("fox"), bar("bar");
 		Vector<char> fox2(fox);
-		assert(fox2.Invariant() && fox2.size() == 3);
+		assert(fox2.invariant() && fox2.size() == 3);
 		assert(fox == fox2);
 		fox2 = bar;
 		assert(fox2 == bar);
@@ -96,10 +98,10 @@ void TestBasic() {
 	{
 		FOX BAR;
 		Vect Fox2(std::move(Fox));
-		assert(Fox2.Invariant() && Fox.Invariant());
+		assert(Fox2.invariant() && Fox.invariant());
 		assert(Fox2 == "Fox" && Fox == "");
 		Bar = std::move(Fox2);
-		assert(Fox2.Invariant() && Bar.Invariant());
+		assert(Fox2.invariant() && Bar.invariant());
 		assert(Bar == "Fox");
 		assert(Fox2 == "" || Fox2 == "Bar"); //Tillåt swap lösning
 	}

@@ -4,171 +4,190 @@
 #include <utility>
 #include "VectorIterator.hpp"
 #include <cassert>
+#include <exception>
+
+#include "Dalloc.hpp"
+
 #define CHECK assert(invariant())
 
 template <class T>
 class Vector
 {
 public:
-	using iterator = VectorIterator<Vector<T>, 1>;
-	using const_iterator = VectorIterator<Vector<const T>, 1>;
-	using reverse_iterator = VectorIterator<Vector<T>, -1>;
-	using const_reverse_iterator = VectorIterator<Vector<const T>, -1>;
+	using iterator = VectorIterator<T, 1>;
+	using const_iterator = VectorIterator<const T, 1>;
+	using reverse_iterator = VectorIterator<T, -1>;
+	using const_reverse_iterator = VectorIterator<const T, -1>;
+
 	using value_type = T;
 	using pointer = T*;
 	using reference = T&;
+	using size_type = size_t;
+	using difference_type = std::ptrdiff_t;
+	using const_reference = const T&;
+	using const_pointer = const T*;
 
-private:
-	T* m_arrayPtr;
-	size_t m_size;
-	size_t m_capacity;
-
+#pragma region struktorer
 public:
-	////Constructors & Destrctor
+
 	Vector() noexcept
+		:
+		m_ptr(nullptr),
+		m_size(0),
+		m_capacity(0)
 	{
-		m_arrayPtr = nullptr;
-
-		m_size = 0;
-		m_capacity = 0;
 		CHECK;
-	};
+	}
 
-	Vector(const char* other)
-	{
-		m_size = strlen(other);
-		m_capacity = m_size;
-
-		if (m_size == 0)
-		{
-			++m_capacity;
-		}
-
-		m_arrayPtr = new T[m_capacity + 1];
-
-		for (size_t i = 0; i < m_size; ++i)
-		{
-			m_arrayPtr[i] = other[i];
-		}
-
-		CHECK;
-	};
+	Vector(const char* other) :
+		Vector(std::strlen(other), other, other + std::strlen(other)) {}
 
 	Vector(const Vector& other)
+		: Vector(other.size(), other.begin(), other.end())
 	{
-		this->m_size = other.size();
-		this->m_capacity = other.capacity();
-
-		if (other.m_arrayPtr == nullptr)
-		{
-			m_arrayPtr = nullptr;
-		}
-		else
-		{
-			m_arrayPtr = new T[other.size()];
-
-			for (size_t i = 0; i < other.size(); i++)
-			{
-				m_arrayPtr[i] = *(other.m_arrayPtr + i);
-			}
-		}
-
 		CHECK;
-	};
+	}
 
-	Vector(Vector&& other) noexcept :
-		m_arrayPtr(other.m_arrayPtr),
+	Vector(Vector&& other) noexcept
+		:
+		m_ptr(other.m_ptr),
 		m_size(other.m_size),
 		m_capacity(other.m_capacity)
 	{
-		other.m_arrayPtr = nullptr;
+		other.m_ptr = nullptr;
 		other.m_size = 0;
 		other.m_capacity = 0;
 		CHECK;
-	};
+	}
+
+	template<typename I>
+	Vector(size_t capacity, const I& begin, const I& end)
+		:
+		m_size(0),
+		m_capacity(capacity),
+		m_ptr(nullptr)
+	{
+		try
+		{
+			if (m_size < 0)
+				throw std::exception("");
+
+			if (m_capacity == 0)
+				throw std::exception("");
+
+			if (begin == nullptr || end == nullptr)
+				throw std::exception("");
+
+			if (capacity < m_size)
+				throw std::exception("");
+
+			m_ptr = Allocate();
+
+			for (I i = begin; i != end; ++i)
+			{
+				push_back(*i);
+			}
+		}
+		catch (...)
+		{
+			Deallocate();
+
+			m_capacity = 0;
+			m_size = 0;
+			m_ptr = nullptr;
+		}
+	}
 
 	~Vector() noexcept
 	{
-		CHECK;
-		delete[] m_arrayPtr;
-	};
+		Deallocate();
+	}
 
-	////Methods
-	size_t size() const noexcept
+#pragma endregion struktorer
+
+private:
+
+	T* Allocate()
+	{
+		return m_allocator.allocate(m_capacity);
+	}
+
+	void Deallocate()
+	{
+		m_allocator.deallocate(m_ptr, m_capacity);
+	}
+
+public:
+
+	// Methods
+	size_type size() const noexcept
 	{
 		return m_size;
-	};
+	}
 
-	size_t capacity() const noexcept
+	size_type capacity() const noexcept
 	{
 		return m_capacity;
-	};
+	}
 
-	T& at(size_t i)
+	reference at(size_type i)
 	{
-		if (i < m_capacity)
-			return m_arrayPtr[i];
-		else
-			throw std::out_of_range("Index is out of Range");
-	};
+		return (i < m_capacity) ? m_ptr[i] : throw std::out_of_range("Index is out of Range");
+	}
 
-	const T& at(size_t i) const
+	const T& at(size_type i) const
 	{
-		if (i < m_capacity)
-			return m_arrayPtr[i];
-		else
-			throw std::out_of_range("Index is out of Range");
-	};
+		return (i < m_capacity) ? m_ptr[i] : throw std::out_of_range("Index is out of Range");
+	}
 
 	void push_back(const T& c)
 	{
-		if (m_arrayPtr == nullptr)
+		if (m_ptr == nullptr)
 		{
 			m_size = 0;
 			m_capacity = 1;
-			m_arrayPtr = new T[m_capacity];
+			m_ptr = Allocate();
 		}
-
 		else if (m_size + 1 > m_capacity)
 		{
 			reserve(2 * (m_capacity == 0 ? 1 : m_capacity));
 		}
 
-		*(m_arrayPtr + m_size) = c;
+		m_ptr[m_size] = c;
 		++m_size;
 
 		CHECK;
-	};
+	}
 
-	void reserve(size_t n)
+	void reserve(size_type new_capacity)
 	{
-		if (n > m_capacity)
+		if (new_capacity > m_capacity)
 		{
-			T* a = new T[n + 1];
+			T* temp = m_allocator.allocate(new_capacity);
 
-			for (size_t i = 0; i < m_capacity; i++)
+			for (size_type i = 0; i < m_capacity; i++)
 			{
-				*(a + i) = m_arrayPtr[i];
+				temp[i] = m_ptr[i];
 			}
 
-			delete[] m_arrayPtr;
-			m_arrayPtr = a;
-			m_capacity = n;
+			Deallocate();
+			m_ptr = temp;
+			temp = nullptr;
 
-			a = nullptr;
+			m_capacity = new_capacity;
 		}
 
 		CHECK;
-	};
+	}
 
 	friend void swap(Vector<T>& lhs, Vector<T>& rhs)
 	{
 		Vector<T> temp = std::move(lhs);
 		lhs = std::move(rhs);
 		rhs = std::move(temp);
-	};
+	}
 
-	void resize(size_t n)
+	void resize(size_type n)
 	{
 		if (n == m_size)
 		{
@@ -181,9 +200,9 @@ public:
 			{
 				reserve(n);
 
-				for (size_t i = m_size; i < n; i++)
+				for (size_type i = m_size; i < n; i++)
 				{
-					m_arrayPtr[i] = T();
+					m_ptr[i] = T();
 				}
 			}
 
@@ -193,36 +212,43 @@ public:
 
 	void shrink_to_fit()
 	{
-		T* temp = new T[m_size + 1];
+		pointer temp = m_allocator.allocate(m_size);
 
-		for (size_t i = 0; i < m_size; ++i)
+		for (size_type i = 0; i < m_size; ++i)
 		{
-			*(temp + i) = m_arrayPtr[i];
+			*(temp + i) = m_ptr[i];
 		}
 
-		delete[] m_arrayPtr;
-		m_arrayPtr = temp;
+		Deallocate();
+		m_ptr = temp;
 		temp = nullptr;
 
 		m_capacity = m_size;
 		CHECK;
 	}
 
-	T* data() noexcept
+	pointer data() noexcept
 	{
-		return m_arrayPtr;
+		return m_ptr;
 	}
 
-	const T* data() const noexcept
+	const_pointer data() const noexcept
 	{
-		return m_arrayPtr;
+		return m_ptr;
 	}
 
 	bool invariant() const
 	{
-		if (m_arrayPtr != nullptr)
+		if (m_ptr != nullptr)
 		{
 			if (m_capacity <= 0)
+			{
+				return false;
+			}
+		}
+		else
+		{
+			if (m_capacity != 0)
 			{
 				return false;
 			}
@@ -230,16 +256,15 @@ public:
 
 		return
 			m_capacity >= m_size;
-
 	}
 
 	friend int operator<=>(const Vector& lhs, const Vector& rhs)
 	{
-		T* first1 = lhs.m_arrayPtr;
-		T* last1 = lhs.m_arrayPtr + lhs.m_size;
+		pointer first1 = lhs.m_ptr;
+		pointer last1 = lhs.m_ptr + lhs.m_size;
 
-		T* first2 = rhs.m_arrayPtr;
-		T* last2 = rhs.m_arrayPtr + rhs.m_size;
+		pointer first2 = rhs.m_ptr;
+		pointer last2 = rhs.m_ptr + rhs.m_size;
 
 		for (; (first1 != last1) && (first2 != last2); ++first1, (void) ++first2)
 		{
@@ -266,44 +291,48 @@ public:
 		}
 
 		return 0;
-	};
+	}
 
 	Vector& operator=(const Vector& other)
 	{
-		if (this == &other)
-			return *this;
+		return AssFast(other);
+		//FastAss(other);
+		//StrongAss(other);
 
-		if (other.size() > m_capacity) {
-			m_size = other.size();
-			reserve(m_size);
-		}
-		else
-		{
-			m_size = other.size();
-		}
+		//if (this == &other)
+		//	return *this;
 
-		for (size_t i = 0; i < m_size; i++)
-			m_arrayPtr[i] = other.m_arrayPtr[i];
+		//if (other.size() > m_capacity) {
+		//	m_size = other.size();
+		//	reserve(m_size);
+		//}
+		//else
+		//{
+		//	m_size = other.size();
+		//}
 
-		CHECK;
-		return *this;
-	};
+		//for (size_type i = 0; i < m_size; i++)
+		//	m_ptr[i] = other.m_ptr[i];
+
+		//CHECK;
+		//return *this;
+	}
 
 	Vector& operator=(Vector&& other) noexcept
 	{
-		delete[] m_arrayPtr; //Fråga: Varken delete eller delete[] ger minnläcka, vilken är rätt här?
-		
-		m_arrayPtr = other.m_arrayPtr;
+		m_allocator.deallocate(m_ptr, m_capacity);
+
+		m_ptr = other.m_ptr;
 		m_capacity = other.m_capacity;
 		m_size = other.m_size;
-		
-		other.m_arrayPtr = nullptr;
+
+		other.m_ptr = nullptr;
 		other.m_size = 0;
 		other.m_capacity = 0;
 
 		CHECK;
 		return *this;
-	};
+	}
 
 	friend bool operator==(const Vector& lhs, const Vector& rhs)
 	{
@@ -312,11 +341,11 @@ public:
 			return false;
 		}
 
-		T* first1 = lhs.m_arrayPtr;
-		T* last1 = lhs.m_arrayPtr + lhs.m_size;
+		pointer first1 = lhs.m_ptr;
+		pointer last1 = lhs.m_ptr + lhs.m_size;
 
-		T* first2 = rhs.m_arrayPtr;
-		T* last2 = rhs.m_arrayPtr + rhs.m_size;
+		pointer first2 = rhs.m_ptr;
+		pointer last2 = rhs.m_ptr + rhs.m_size;
 
 		for (; (first1 != last1) && (first2 != last2); ++first1, (void) ++first2)
 		{
@@ -327,87 +356,166 @@ public:
 		}
 
 		return true;
-	};
+	}
 
 	friend std::ostream& operator<<(std::ostream& cout, const Vector& other)
 	{
-		for (size_t i = 0; i < other.size(); ++i)
+		for (size_type i = 0; i < other.size(); ++i)
 			cout << other[i];
 		return cout;
-	};
+	}
 
-	const T& operator[](size_t i) const
+	const_reference operator[](size_t i) const
 	{
-		return m_arrayPtr[i];
-	};
+		return m_ptr[i];
+	}
 
-	T& operator[](size_t i)
+	reference operator[](size_t i)
 	{
 		invariant();
-		return m_arrayPtr[i];
-	};
+		return m_ptr[i];
+	}
 
-	//Iterators
+#pragma region assignmentoperators
+
+	Vector& Ass(const Vector& rhs)
+	{
+		if (this == &rhs)
+			return *this;
+		if (rhs.size() > m_capacity)
+		{
+			m_size = rhs.size();
+			reserve(m_size);
+		}
+		else
+		{
+			m_size = rhs.size();
+		}
+		for (size_type i = 0; i < m_size; i++)
+			m_ptr[i] = rhs.m_ptr[i];
+		CHECK;
+		return *this;
+	}
+
+	Vector& AssFast(const Vector& rhs)
+	{
+		if (this == &rhs)
+			return *this;
+		if (rhs.size() > m_capacity)
+		{
+			m_size = rhs.size();
+			reserve(m_size);
+		}
+		else
+		{
+			m_size = rhs.size();
+		}
+		for (size_type i = 0; i < m_size; i++)
+			m_ptr[i] = rhs.m_ptr[i];
+		CHECK;
+		return *this;
+	}
+
+	Vector& AssStrong(const Vector& rhs) //rollback
+	{
+		if (this == &rhs)
+			return *this;
+		if (rhs.size() > m_capacity)
+		{
+			m_size = rhs.size();
+			reserve(m_size);
+		}
+		else
+		{
+			m_size = rhs.size();
+		}
+		for (size_type i = 0; i < m_size; i++)
+			m_ptr[i] = rhs.m_ptr[i];
+		CHECK;
+		return *this;
+	}
+
+	Vector& AssSimple(const Vector& rhs) //garantera inga minnesläckor
+	{
+		m_ptr = rhs.m_ptr;
+		m_size = rhs.m_size;
+		m_capacity = rhs.m_capacity;
+
+		CHECK;
+		return *this;
+	}
+
+#pragma region 
+
+#pragma region ITERATORS
 
 	iterator begin() noexcept
 	{
-		return iterator(m_arrayPtr);
+		return iterator(m_ptr);
 	};
 
 	const_iterator begin()const noexcept
 	{
-		return const_iterator(m_arrayPtr);
+		return const_iterator(m_ptr);
 	};
 
 	iterator end() noexcept
 	{
-		return iterator(m_arrayPtr + m_size);
+		return iterator(m_ptr + m_size);
 	};
 
 	const_iterator end() const noexcept
 	{
-		return const_iterator(m_arrayPtr + m_size);
+		return const_iterator(m_ptr + m_size);
 	};
 
 	const_iterator cbegin() const noexcept
 	{
-		return const_iterator(m_arrayPtr);
+		return const_iterator(m_ptr);
 	};
 
 	const_iterator cend() const noexcept
 	{
-		return const_iterator(m_arrayPtr + m_size);
+		return const_iterator(m_ptr + m_size);
 	};
 
 	//REVERSE ITERATOR Begin
 
 	reverse_iterator rbegin() noexcept
 	{
-		return reverse_iterator(m_arrayPtr + m_size -1);
+		return reverse_iterator(m_ptr + m_size - 1);
 	};
 
 	const_reverse_iterator rbegin() const noexcept
 	{
-		return const_reverse_iterator(m_arrayPtr + m_size -1);
+		return const_reverse_iterator(m_ptr + m_size - 1);
 	};
 
 	reverse_iterator rend() noexcept
 	{
-		return reverse_iterator(m_arrayPtr -1);
+		return reverse_iterator(m_ptr - 1);
 	};
 
 	const_reverse_iterator rend() const noexcept
 	{
-		return const_reverse_iterator(m_arrayPtr -1);
+		return const_reverse_iterator(m_ptr - 1);
 	};
 
 	const_reverse_iterator crbegin() const noexcept
 	{
-		return const_reverse_iterator(m_arrayPtr + m_size -1);
+		return const_reverse_iterator(m_ptr + m_size - 1);
 	};
 
 	const_reverse_iterator crend() const noexcept
 	{
-		return const_reverse_iterator(m_arrayPtr -1);
+		return const_reverse_iterator(m_ptr - 1);
 	};
+
+#pragma endregion
+
+private:
+	T* m_ptr;
+	size_t m_size;
+	size_t m_capacity;
+	Dalloc<T> m_allocator;
 };
