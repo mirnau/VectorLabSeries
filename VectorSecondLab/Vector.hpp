@@ -69,17 +69,7 @@ public:
 	{
 		try
 		{
-			if (m_size < 0)
-				throw std::exception("");
-
-			if (m_capacity == 0)
-				throw std::exception("");
-
-			if (begin == nullptr || end == nullptr)
-				throw std::exception("");
-
-			if (capacity < m_size)
-				throw std::exception("");
+			//CHECK;
 
 			m_ptr = Allocate();
 
@@ -114,6 +104,11 @@ private:
 
 	void Deallocate()
 	{
+		for (T* i = m_ptr; i < m_ptr + m_size; i++)
+		{
+			m_ptr->~T();
+		}
+
 		m_allocator.deallocate(m_ptr, m_capacity);
 	}
 
@@ -153,7 +148,7 @@ public:
 			reserve(2 * (m_capacity == 0 ? 1 : m_capacity));
 		}
 
-		m_ptr[m_size] = c;
+		new(m_ptr + m_size)T(c);
 		++m_size;
 
 		CHECK;
@@ -167,6 +162,7 @@ public:
 
 			for (size_type i = 0; i < m_capacity; i++)
 			{
+				new(temp + i)T();
 				temp[i] = m_ptr[i];
 			}
 
@@ -187,26 +183,37 @@ public:
 		rhs = std::move(temp);
 	}
 
-	void resize(size_type n)
+	void resize(size_type new_size)
 	{
-		if (n == m_size)
+		if (new_size == m_size)
 		{
 			return;
 		}
 
-		if (n > 0)
+		if (new_size < m_size)
 		{
-			if (m_capacity < n)
+			for (T* i = m_ptr + new_size; i != m_ptr + m_size + 1; i++)
 			{
-				reserve(n);
+				i->~T();
+			}
+		}
 
-				for (size_type i = m_size; i < n; i++)
+
+		if (new_size > 0)
+		{
+			if (m_capacity < new_size)
+			{
+				reserve(new_size);
+
+				for (size_type i = m_size; i < new_size; i++)
 				{
-					m_ptr[i] = T();
+					new(m_ptr + i)T{};
 				}
 			}
 
-			m_size = n;
+			
+
+			m_size = new_size;
 		}
 	}
 
@@ -216,7 +223,8 @@ public:
 
 		for (size_type i = 0; i < m_size; ++i)
 		{
-			*(temp + i) = m_ptr[i];
+			new(temp + i)T();
+			temp[i] = m_ptr[i];
 		}
 
 		Deallocate();
@@ -237,8 +245,37 @@ public:
 		return m_ptr;
 	}
 
+	template<class... Args>
+	reference emplace_back(Args&&... args)
+	{
+
+		for (auto arg : args)
+		{
+			push_back(arg);
+		}
+
+		//if (m_size)
+		//{
+
+		//}
+		//return new(m_ptr + m_size + )
+	}
+
 	bool invariant() const
 	{
+
+		//if (m_size < 0)
+		//	throw std::exception("");
+
+		//if (m_capacity == 0)
+		//	throw std::exception("");
+
+		//if (begin == nullptr || end == nullptr)
+		//	throw std::exception("");
+
+		//if (capacity < m_size)
+		//	throw std::exception("");
+
 		if (m_ptr != nullptr)
 		{
 			if (m_capacity <= 0)
