@@ -39,13 +39,11 @@ void TestBasic() {
 #if LEVEL>=2
 	{
 		Vector<char> fox("fox");
-		
 		assert(fox.size() == 3);
 		cout << fox;
 		assert(fox == fox);
 		Vector<char> bar("bar");
 		assert(!(fox == bar));
-		
 	}
 #endif
 #if LEVEL>=3

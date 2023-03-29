@@ -69,7 +69,11 @@ public:
 	{
 		try
 		{
-			//CHECK;
+			if (m_capacity == 0)
+				throw std::exception("");
+
+			if (begin == nullptr || end == nullptr)
+				throw std::exception("");
 
 			m_ptr = Allocate();
 
@@ -77,6 +81,10 @@ public:
 			{
 				push_back(*i);
 			}
+
+			//Tycker det är snyggare att aldrig göra en alloc
+			//if (!invariant())
+			//	throw std::exception("");
 		}
 		catch (...)
 		{
@@ -130,28 +138,9 @@ public:
 		return (i < m_capacity) ? m_ptr[i] : throw std::out_of_range("Index is out of Range");
 	}
 
-	const T& at(size_type i) const
+	const_reference at(size_type i) const
 	{
 		return (i < m_capacity) ? m_ptr[i] : throw std::out_of_range("Index is out of Range");
-	}
-
-	void push_back(const T& c)
-	{
-		if (m_ptr == nullptr)
-		{
-			m_size = 0;
-			m_capacity = 1;
-			m_ptr = Allocate();
-		}
-		else if (m_size + 1 > m_capacity)
-		{
-			reserve(2 * (m_capacity == 0 ? 1 : m_capacity));
-		}
-
-		new(m_ptr + m_size)T(c);
-		++m_size;
-
-		CHECK;
 	}
 
 	void reserve(size_type new_capacity)
@@ -160,7 +149,7 @@ public:
 		{
 			T* temp = m_allocator.allocate(new_capacity);
 
-			for (size_type i = 0; i < m_capacity; i++)
+			for (size_type i = 0; i < m_size; i++)
 			{
 				new(temp + i)T();
 				temp[i] = m_ptr[i];
@@ -198,7 +187,6 @@ public:
 			}
 		}
 
-
 		if (new_size > 0)
 		{
 			if (m_capacity < new_size)
@@ -211,10 +199,18 @@ public:
 				}
 			}
 
-			
-
 			m_size = new_size;
 		}
+	}
+
+	pointer data() noexcept
+	{
+		return m_ptr;
+	}
+
+	const_pointer data() const noexcept
+	{
+		return m_ptr;
 	}
 
 	void shrink_to_fit()
@@ -235,47 +231,39 @@ public:
 		CHECK;
 	}
 
-	pointer data() noexcept
+	void push_back(const T&& c)
 	{
-		return m_ptr;
+		push_back(c);
 	}
 
-	const_pointer data() const noexcept
+	void push_back(const T& c)
 	{
-		return m_ptr;
+		if (m_ptr == nullptr)
+		{
+			m_size = 0;
+			m_capacity = 1;
+			m_ptr = Allocate();
+		}
+		else if (m_size + 1 > m_capacity)
+		{
+			reserve(2 * (m_capacity == 0 ? 1 : m_capacity));
+		}
+
+		new(m_ptr + m_size)T(c);
+		++m_size;
+
+		CHECK;
 	}
 
 	template<class... Args>
-	reference emplace_back(Args&&... args)
+	reference emplace_back(Args&&... Targs)
 	{
-
-		for (auto arg : args)
-		{
-			push_back(arg);
-		}
-
-		//if (m_size)
-		//{
-
-		//}
-		//return new(m_ptr + m_size + )
+		reserve(m_size + sizeof...(Targs));
+		return *new (m_ptr + m_size++) T(std::forward<Args>(Targs)...);
 	}
 
 	bool invariant() const
 	{
-
-		//if (m_size < 0)
-		//	throw std::exception("");
-
-		//if (m_capacity == 0)
-		//	throw std::exception("");
-
-		//if (begin == nullptr || end == nullptr)
-		//	throw std::exception("");
-
-		//if (capacity < m_size)
-		//	throw std::exception("");
-
 		if (m_ptr != nullptr)
 		{
 			if (m_capacity <= 0)
@@ -417,67 +405,70 @@ public:
 
 	Vector& Ass(const Vector& rhs)
 	{
-		if (this == &rhs)
-			return *this;
-		if (rhs.size() > m_capacity)
-		{
-			m_size = rhs.size();
-			reserve(m_size);
-		}
-		else
-		{
-			m_size = rhs.size();
-		}
-		for (size_type i = 0; i < m_size; i++)
-			m_ptr[i] = rhs.m_ptr[i];
-		CHECK;
-		return *this;
+		return *this = rhs;
 	}
 
 	Vector& AssFast(const Vector& rhs)
 	{
 		if (this == &rhs)
 			return *this;
-		if (rhs.size() > m_capacity)
+
+		if (rhs.m_size > m_capacity)
 		{
-			m_size = rhs.size();
-			reserve(m_size);
+			if (m_ptr) {
+				m_size = rhs.m_size;
+				reserve(m_size);
+			}
+
+			else
+			{
+				m_capacity = rhs.m_capacity;
+				m_size = rhs.m_size;
+				m_ptr = Allocate();
+				for (size_t i = 0; i < rhs.m_size; ++i)
+				{
+					new(m_ptr + i) T();
+				}
+			}
 		}
+
 		else
 		{
-			m_size = rhs.size();
+			if (m_size < rhs.m_size) {
+
+				for (size_t i = m_size; i < rhs.m_size; ++i)
+				{
+					new(m_ptr + i) T();
+				}
+
+				m_size = rhs.m_size;
+			}
+
+			else
+				resize(rhs.m_size);
+
 		}
-		for (size_type i = 0; i < m_size; i++)
+
+		for (size_t i = 0; i < m_size; i++)
 			m_ptr[i] = rhs.m_ptr[i];
+
 		CHECK;
 		return *this;
 	}
 
 	Vector& AssStrong(const Vector& rhs) //rollback
 	{
-		if (this == &rhs)
-			return *this;
-		if (rhs.size() > m_capacity)
-		{
-			m_size = rhs.size();
-			reserve(m_size);
-		}
-		else
-		{
-			m_size = rhs.size();
-		}
-		for (size_type i = 0; i < m_size; i++)
-			m_ptr[i] = rhs.m_ptr[i];
+		Vector temp(rhs);
+		std::swap(*this, temp);
 		CHECK;
 		return *this;
 	}
 
 	Vector& AssSimple(const Vector& rhs) //garantera inga minnesläckor
 	{
-		m_ptr = rhs.m_ptr;
-		m_size = rhs.m_size;
-		m_capacity = rhs.m_capacity;
 
+		Vector temp(rhs);
+		std::swap(*this, temp);
 		CHECK;
 		return *this;
 	}

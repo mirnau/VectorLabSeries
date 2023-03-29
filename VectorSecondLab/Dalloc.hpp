@@ -15,7 +15,7 @@ bool ErrMegToUser(T msg) {
     if (!executed) {
         executed = true;
         std::cout << msg << '\n';
-        std::cout << "väntar på Enter"; std::cin.ignore(999, '\n');
+        //std::cout << "väntar på Enter"; std::cin.ignore(999, '\n');
     }
     return false;
 }
