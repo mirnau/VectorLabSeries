@@ -151,8 +151,7 @@ public:
 
 			for (size_type i = 0; i < m_size; i++)
 			{
-				new(temp + i)T();
-				temp[i] = m_ptr[i];
+				new(temp + i)T(m_ptr[i]);
 			}
 
 			Deallocate();
@@ -415,42 +414,25 @@ public:
 
 		if (rhs.m_size > m_capacity)
 		{
-			if (m_ptr) {
-				m_size = rhs.m_size;
-				reserve(m_size);
-			}
+			Deallocate();
+			m_capacity = rhs.m_size;
 
-			else
-			{
-				m_capacity = rhs.m_capacity;
-				m_size = rhs.m_size;
-				m_ptr = Allocate();
-				for (size_t i = 0; i < rhs.m_size; ++i)
-				{
-					new(m_ptr + i) T();
-				}
-			}
-		}
-
-		else
-		{
-			if (m_size < rhs.m_size) {
-
-				for (size_t i = m_size; i < rhs.m_size; ++i)
-				{
-					new(m_ptr + i) T();
-				}
-
-				m_size = rhs.m_size;
-			}
-
-			else
-				resize(rhs.m_size);
-
+			m_ptr = Allocate();
+			m_size = 0;
 		}
 
 		for (size_t i = 0; i < m_size; i++)
 			m_ptr[i] = rhs.m_ptr[i];
+
+		if (m_size < rhs.m_size)
+		{
+			for (m_size; m_size < rhs.m_size; ++m_size) {
+				new(m_ptr + m_size) T(rhs.m_ptr[m_size]);
+			}
+		}
+
+		else
+			resize(rhs.m_size);
 
 		CHECK;
 		return *this;
