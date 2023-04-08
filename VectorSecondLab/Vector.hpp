@@ -70,7 +70,7 @@ public:
 		try
 		{
 			if (m_capacity == 0)
-				throw std::exception("");
+				return;
 
 			if (begin == nullptr || end == nullptr)
 				throw std::exception("");
@@ -93,6 +93,7 @@ public:
 			m_capacity = 0;
 			m_size = 0;
 			m_ptr = nullptr;
+			throw;
 		}
 	}
 
@@ -149,9 +150,22 @@ public:
 		{
 			T* temp = m_allocator.allocate(new_capacity);
 
-			for (size_type i = 0; i < m_size; i++)
+			size_type constructedElements = 0;
+
+			try
 			{
-				new(temp + i)T(m_ptr[i]);
+				for (size_type i = 0; i < m_size; ++i)
+				{
+					new(temp + i)T(m_ptr[i]);
+					constructedElements = i;
+				}
+			}
+			catch (...)
+			{
+				m_size = constructedElements;
+				Deallocate();
+				m_size = 0;
+				m_capacity = 0
 			}
 
 			Deallocate();
@@ -186,20 +200,17 @@ public:
 			}
 		}
 
-		if (new_size > 0)
+		if (m_capacity < new_size)
 		{
-			if (m_capacity < new_size)
+			reserve(new_size);
+
+			for (size_type i = m_size; i < new_size; i++)
 			{
-				reserve(new_size);
-
-				for (size_type i = m_size; i < new_size; i++)
-				{
-					new(m_ptr + i)T{};
-				}
+				new(m_ptr + i)T{};
 			}
-
-			m_size = new_size;
 		}
+
+		m_size = new_size;
 	}
 
 	pointer data() noexcept
@@ -421,7 +432,7 @@ public:
 			m_size = 0;
 		}
 
-		for (size_t i = 0; i < m_size; i++)
+		for (size_t i = 0; i < m_size && i < rhs.m_size; i++)
 			m_ptr[i] = rhs.m_ptr[i];
 
 		if (m_size < rhs.m_size)
@@ -430,7 +441,6 @@ public:
 				new(m_ptr + m_size) T(rhs.m_ptr[m_size]);
 			}
 		}
-
 		else
 			resize(rhs.m_size);
 
